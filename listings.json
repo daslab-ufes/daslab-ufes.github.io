@@ -1,0 +1,50 @@
+[
+  {
+    "listing": "/tutoriais/index.html",
+    "items": [
+      "/tutoriais/21_incrementando_seus graficos_com_ggplot2/index.html",
+      "/tutoriais/20_como_construir_graficos_com_ggplot2/index.html",
+      "/tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html",
+      "/tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html",
+      "/tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html",
+      "/tutoriais/16_lapidando_strings/index.html",
+      "/tutoriais/15_mergulhando_no_tidyverse/index.html",
+      "/tutoriais/14_utilizando_o_pacote_dplyr/index.html",
+      "/tutoriais/13_boas_praticas_com_git_e_github/index.html",
+      "/tutoriais/12_o_melhor_filme_do_tomhanks/index.html",
+      "/tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html",
+      "/tutoriais/10_importando_dados_no_R/index.html",
+      "/tutoriais/8_boas_praticas_no_software_R/index.html",
+      "/tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html",
+      "/tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html",
+      "/tutoriais/4_analise_do_melhor_canal_do_youtube/index.html",
+      "/tutoriais/3_animacoes_conceitos_estatisticos/index.html",
+      "/tutoriais/2_playlists_no_Spotify/index.html",
+      "/tutoriais/1_Interpretabilidade_em_modelos/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/tutoriais/21_incrementando_seus graficos_com_ggplot2/index.html",
+      "/tutoriais/20_como_construir_graficos_com_ggplot2/index.html",
+      "/tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html",
+      "/tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html",
+      "/tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html",
+      "/tutoriais/16_lapidando_strings/index.html",
+      "/tutoriais/15_mergulhando_no_tidyverse/index.html",
+      "/tutoriais/14_utilizando_o_pacote_dplyr/index.html",
+      "/tutoriais/13_boas_praticas_com_git_e_github/index.html",
+      "/tutoriais/12_o_melhor_filme_do_tomhanks/index.html",
+      "/tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html",
+      "/tutoriais/10_importando_dados_no_R/index.html",
+      "/tutoriais/8_boas_praticas_no_software_R/index.html",
+      "/tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html",
+      "/tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html",
+      "/tutoriais/4_analise_do_melhor_canal_do_youtube/index.html",
+      "/tutoriais/3_animacoes_conceitos_estatisticos/index.html",
+      "/tutoriais/2_playlists_no_Spotify/index.html",
+      "/tutoriais/1_Interpretabilidade_em_modelos/index.html"
+    ]
+  }
+]

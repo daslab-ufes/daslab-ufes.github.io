@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Bruno Santos">
+<meta name="description" content="Aprenda a construir um modelo estatístico utilizando o software R para montar uma playlist no Spotify, onde as músicas são incluídas baseando-se na positividade que cada uma transmite.">
+
+<title>Construindo playlists no Spotify a partir de modelos probabilísticos</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../..//img/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background-image: url(banner.png);
+background-size: cover;
+      }
+</style>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../img/daslab-logo-removebg.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../sobre/index.html"> 
+<span class="menu-text">Sobre</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projetos/index.html"> 
+<span class="menu-text">Projetos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutoriais/index.html"> 
+<span class="menu-text">Tutoriais</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../ensinar/index.html"> 
+<span class="menu-text">ensinaR</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../oobr/index.html"> 
+<span class="menu-text">OOBr</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../eventos/index.html"> 
+<span class="menu-text">Eventos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../contato/index.html"> 
+<span class="menu-text">Contato</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Construindo playlists no Spotify a partir de modelos probabilísticos</h1>
+                  <div>
+        <div class="description">
+          Aprenda a construir um modelo estatístico utilizando o software R para montar uma playlist no Spotify, onde as músicas são incluídas baseando-se na positividade que cada uma transmite.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Estatística</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">Análise de Dados</div>
+                <div class="quarto-category">Análise Preditiva</div>
+                <div class="quarto-category">Análise Inferencial</div>
+                <div class="quarto-category">Data Wrangling</div>
+                <div class="quarto-category">ggplot</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor</div>
+      <div class="quarto-title-meta-contents">
+               <p>Bruno Santos </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Data de Publicação</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">8 de junho de 2020</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<style>
+body {
+    background: white;
+}
+
+.quarto-title-banner{
+    text-align: left !important;
+}
+</style>
+<p>Diante do atual cenário de isolamento durante a quarentena devido à pandemia da Covid-19, é interessante pensarmos em maneiras de contornar alguns dos desprazeres de estarmos longe fisicamente dos nossos amigos e familiares. Para mim uma das soluções para resolver esse probleminha é <em>ouvir uma boa música</em>. Embora a definição de “boa música” possa variar de pessoa pra pessoa, nesse <em>post</em> vamos utilizar uma informação objetiva sobre músicas “felizes”, conforme uma variável que é fornecida pela API do Spotify.</p>
+<p>Segundo o <a href="https://developer.spotify.com/documentation/web-api/reference/get-audio-features">manual de referência</a> de uso da API do Spotify, existe uma variável atribuída a cada música no aplicativo, chamada <em>valence</em>, que tem sua definição traduzida livremente aqui:</p>
+<blockquote class="blockquote">
+<p>Uma medida de 0.0 a 1.0 descrevendo a positividade musical transmitida por uma música. Músicas com alto valor de <strong>valência</strong> soam mais positivas, enquanto que músicas com baixo valor de <strong>valência</strong> soam mais negativas.</p>
+</blockquote>
+<p>Considerando então essa informação de valência de uma amostra de músicas, vamos construir um modelo estatístico para tentar identificar características (ou covariáveis) que ajudem a explicar essa <em>positividade</em> (<strong>variável resposta</strong>) nas músicas para então construir uma nova <em>playlist</em>.</p>
+<p>Vamos considerar os seguintes pacotes para essa análise.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rspotify)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstanarm)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>O pacote <a href="https://cran.r-project.org/web/packages/Rspotify/index.html"><code>Rspotify</code></a> é utilizado para buscar as músicas na API do Spotify. O pacote <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> é necessário para todas as operações de selecionar, renomear, filtrar, entre outras, que são feitas no banco de dados ao longo da análise. O pacote <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a> nos ajuda a fazer os gráficos de maneira prática e fácil. E o pacote <a href="https://mc-stan.org/rstanarm/">rstanarm</a> é utilizado para estimar os modelos bayesianos que serão empregados para construir uma nova <em>playlist</em>.</p>
+<p>Para ter acesso às músicas, é preciso obter uma chave de acesso conforme descrição nesse <a href="https://developer.spotify.com/documentation/web-api/quick-start/">link</a>. Após obtenção dessa chave, essa informação deve ser colocada no objeto <code>keys</code> utilizando a função <code>Rspotify::spotifyOAuth()</code>.</p>
+<p>Embora a API do Spotify não explique exatamente como funciona o algoritmo para definir a <em>valência</em> de cada música, entendemos que tal algoritmo deva utilizar de alguma maneiras as letras das músicas consideradas. Sendo assim e supondo que esse treinamento talvez esteja mais calibrado para músicas em inglês, vamos nos limitar a músicas de língua inglesa, inicialmente. A quem tiver interesse, fica aqui a sugestão de reprodução desse exercício para músicas brasileiras, por exemplo.</p>
+<p>Para estimarmos nosso modelo vamos considerar somente uma amostra de músicas. Com o intuito de utilizarmos músicas mais recentes e que tenham maior alcance, utilizaremos as 100 músicas da lista da <a href="https://www.billboard.com/charts/hot-100">“<em>Billboard Hot 100</em>”</a>, que é um importante referencial no mundo da música. Nossos dados consideram as musicas dessa lista obtidas no dia 05/06/2020.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>top_songs_billboard <span class="ot">&lt;-</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    Rspotify<span class="sc">::</span><span class="fu">getPlaylistSongs</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">user_id =</span> <span class="st">"Billboard"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">playlist_id =</span> <span class="st">"6UeSakyzhiEt4NB3UAd6NQ"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">token =</span> keys</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">data_consulta =</span> <span class="fu">Sys.Date</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Em seguida, obtemos as variáveis referentes a cada uma das músicas:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>variaveis_musicas <span class="ot">&lt;-</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(top_songs_billboard<span class="sc">$</span>id, getFeatures, <span class="at">token =</span> keys)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>todas_musicas <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind.data.frame, variaveis_musicas) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>uri, <span class="sc">-</span>analysis_url)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Para facilitar a leitura e discussão dos resultados, vamos renomear as variáveis</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>todas_musicas <span class="ot">&lt;-</span> todas_musicas <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_danca =</span> danceability,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_energia =</span> energy,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_sonoridade =</span> loudness,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_fala =</span> speechiness,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_acustica =</span> acousticness,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_ao_vivo =</span> liveness,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">tempo =</span> tempo,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">duracao_ms =</span> duration_ms,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">valencia =</span> valence</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Em seguida, vejamos a distribuição de valores da nossa variável resposta a partir do seu histograma, assim como uma estimativa da densidade dessa distribuição.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Considerando distribuição da variável valence</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(todas_musicas) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> valencia, <span class="at">y =</span> ..density..),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="st">"royalblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.25</span>, <span class="at">bins =</span> <span class="dv">20</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> valencia), <span class="at">adjust =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="unnamed-chunk-6-1.png" class="img-fluid"><!-- -->
+</center>
+<p>Tendo em vista a dificuldade de se modelar a variabilidade dessa variável resposta, embora existam opções como a regressão beta, i.e., quando assumimos que a variável resposta tem distribuição beta, vamos considerar uma simplificação do problema. Em vez de modelar essa variável em sua escala contínua, iremos considerar uma categorização dessa variável, em que criamos uma variável dicotômica, em que separamos as observações entre aquelas com valor maior ou menor que 0,5, valor que está bastante próximo da mediana dos dados.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(todas_musicas<span class="sc">$</span>valencia, <span class="fl">0.5</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   50%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.493</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>todas_musicas <span class="ot">&lt;-</span> todas_musicas <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">valencia_cat =</span> <span class="fu">cut</span>(valencia, <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Tendo uma variável dicotômica, podemos pensar em estimar um modelo para uma variável resposta com distribuição Bernoulli. Aproveitando a discussão aqui da Prof.&nbsp;Agatha, em um <a href="https://daslab-ufes.github.io/interpretability-in-predictive-model/">post</a> anterior a esse, temos o interesse em construir um modelo preditivo - supondo a construção de uma <em>playlist</em> ao fim dessa análise, porém vamos nos ater a um modelo explicável. Essa escolha é simplesmente por simplificação do problema, embora em uma oportunidade futura podemos rever essa escolha. Temos então para a variável resposta <span class="math inline">\(Y
+= 1\)</span>, se a música é mais positiva (valência &gt; 0,5), e <span class="math inline">\(Y
+= 0\)</span>, caso contrário.</p>
+<p>Supomos que <span class="math inline">\(P(Y = 1) = p\)</span> e utilizando o modelo de regressão logístico podemos escrever essa probabilidade como</p>
+<p><span class="math display">\[\begin{equation}
+p = \frac{e^{X\beta}}{1 +
+e^{X\beta}},
+\end{equation}\]</span></p>
+<p>em que colocamos na matriz de planejamento X nossas covariáveis. Nosso interesse é estimar o vetor <span class="math inline">\(\beta\)</span> segundo a nossa amostra de 100 músicas. Uma vez com beta estimado e a depender dos valores de X de uma dada música, podemos então estimar a probabilidade da música ser positiva ao considerar a relação dada na equação acima.</p>
+<p>Antes de estimar o modelo, podemos checar se as covariáveis (após uma padronização dos seus valores) possuem algum tipo de correlação alta entre si, fazendo por exemplo:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>variaveis_preditoras <span class="ot">&lt;-</span> todas_musicas <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        escore_danca, escore_energia, escore_sonoridade, escore_fala, escore_acustica,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        escore_ao_vivo, tempo, duracao_ms</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(<span class="fu">cor</span>(variaveis_preditoras))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="unnamed-chunk-8-1.png" class="img-fluid"><!-- -->
+</center>
+<p>A análise do gráfico anterior nos mostra que as variáveis <code>escore_sonoridade</code> e <code>escore_energia</code> têm uma correlação alta. Apesar disso, vamos manter as duas variáveis na matriz de planejamento <span class="math inline">\(X\)</span>, porém nos atentaremos às estimativas do modelo.</p>
+<p>Para estimação dos parâmetros do modelo vamos considerar a inferência bayesiana, através do pacote <code>rstanarm</code>. Uma introdução básica ao tema pode ser vista no <a href="https://pt.wikipedia.org/wiki/Infer%C3%AAncia_bayesiana">link</a>. Para a definição das nossas crenças a priori sobre o vetor de parâmetros <span class="math inline">\(\beta\)</span>, consideramos uma distribuição t-Student com 7 graus de liberdade, conforme discussão feita <a href="https://avehtari.github.io/modelselection/diabetes.html">aqui</a>.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_model <span class="ot">&lt;-</span> variaveis_preditoras</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_model<span class="sc">$</span>outcome <span class="ot">&lt;-</span> todas_musicas<span class="sc">$</span>valencia_cat</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Estimando modelo logístico bayesiano</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>t_prior <span class="ot">&lt;-</span> <span class="fu">student_t</span>(<span class="at">df =</span> <span class="dv">7</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(outcome <span class="sc">~</span> .,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_model,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior =</span> t_prior, <span class="at">prior_intercept =</span> t_prior,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">QR =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">12345678</span>, <span class="at">refresh =</span> <span class="dv">0</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Podemos verificar densidades das distribuições a posteriori dos parâmetros, fazendo</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo, <span class="st">"areas"</span>, <span class="at">prob =</span> <span class="fl">0.95</span>, <span class="at">prob_outer =</span> <span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="unnamed-chunk-10-1.png" class="img-fluid"><!-- -->
+</center>
+<p>E se quisermos as estimativas pontuais e também os respectivos intervalos de credibilidade, podemos utilizar o seguinte:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(modelo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Coefficient</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td>-0.12345838</td>
+</tr>
+<tr class="even">
+<td>escore_danca</td>
+<td>0.69537783</td>
+</tr>
+<tr class="odd">
+<td>escore_energia</td>
+<td>1.11227711</td>
+</tr>
+<tr class="even">
+<td>escore_sonoridade</td>
+<td>0.14325884</td>
+</tr>
+<tr class="odd">
+<td>escore_fala</td>
+<td>0.26609762</td>
+</tr>
+<tr class="even">
+<td>escore_acustica</td>
+<td>0.69828862</td>
+</tr>
+<tr class="odd">
+<td>escore_ao_vivo</td>
+<td>0.19340754</td>
+</tr>
+<tr class="even">
+<td>tempo</td>
+<td>-0.01454859</td>
+</tr>
+<tr class="odd">
+<td>duracao_ms</td>
+<td>0.47230439</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">posterior_interval</span>(modelo, <span class="at">prob =</span> <span class="fl">0.95</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>2.5%</th>
+<th>97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td>-0.582274955</td>
+<td>0.3213192</td>
+</tr>
+<tr class="even">
+<td>escore_danca</td>
+<td>0.146963038</td>
+<td>1.2945369</td>
+</tr>
+<tr class="odd">
+<td>escore_energia</td>
+<td>0.326135738</td>
+<td>1.9850818</td>
+</tr>
+<tr class="even">
+<td>escore_sonoridade</td>
+<td>-0.510518128</td>
+<td>0.8271121</td>
+</tr>
+<tr class="odd">
+<td>escore_fala</td>
+<td>-0.244289928</td>
+<td>0.8136716</td>
+</tr>
+<tr class="even">
+<td>escore_acustica</td>
+<td>0.080733371</td>
+<td>1.3837728</td>
+</tr>
+<tr class="odd">
+<td>escore_ao_vivo</td>
+<td>-0.238027585</td>
+<td>0.6713185</td>
+</tr>
+<tr class="even">
+<td>tempo</td>
+<td>-0.550411657</td>
+<td>0.5339127</td>
+</tr>
+<tr class="odd">
+<td>duracao_ms</td>
+<td>-0.002269076</td>
+<td>0.9785030</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Tendo em vista os intervalos de 95% de credibilidade, diríamos que os parâmetros associados às covariáveis <code>escore_danca</code>, <code>escore_energia</code> e <code>escore_acustica</code> contribuem positivamente para a razão de chances entre músicas mais positivas e menos positivas, conforme aumentamos os valores dessas variáveis. Esse é um aspecto do modelo logístico, em que podemos interpretar os valores dos parâmetros obtidos. Nesse caso, diríamos que quanto maior os valores dessas variáveis maior a chance de observamos uma música positiva.</p>
+<p>Supondo que a variável resposta seja em parte explicada pelas letras da música, mas em outra parte possa ser entendida como funcões das variáveis explicativas que escolhemos como, por exemplo, <code>escore_danca</code> e <code>escore_energia</code>, podemos fazer a previsão dessa probabilidade de observarmos uma música mais positiva considerando uma amostra de músicas brasileiras. Para fazer esse exercício, consideramos uma <em>playlist</em> com músicas brasileiras dos últimos anos, que segundo a definição do Spotify tem</p>
+<blockquote class="blockquote">
+<p>Hits brasileiros dos últimos anos para animar sua faxina.</p>
+</blockquote>
+<p>Sendo assim, gostaríamos de selecionar aquelas com maiores valores a probabilidade de ser positiva baseado nos coeficientes do objeto <code>modelo</code> que estimamos anteriormente. Poderíamos eventualmente selecionar dentre todos os modelos que foram estimados, aquele com a maior discrimação, porém vamos deixar esse tipo de análise para <em>posts</em> futuros. Podemos obter as músicas e suas respectivas variáveis da mesma maneira que fizemos anteriormente.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>musicas_dia_faxina <span class="ot">&lt;-</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    Rspotify<span class="sc">::</span><span class="fu">getPlaylistSongs</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">user_id =</span> <span class="st">"Billboard"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">playlist_id =</span> <span class="st">"37i9dQZF1DXdg3JLYhYrif"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">token =</span> keys</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>variaveis_musicas_faxina <span class="ot">&lt;-</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(musicas_dia_faxina<span class="sc">$</span>id, getFeatures, <span class="at">token =</span> keys)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>todas_musicas_faxina <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind.data.frame, variaveis_musicas_faxina) <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>uri, <span class="sc">-</span>analysis_url)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>variaveis_predicao <span class="ot">&lt;-</span> todas_musicas_faxina <span class="sc">%&gt;%</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_danca =</span> danceability,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_energia =</span> energy,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_sonoridade =</span> loudness,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_fala =</span> speechiness,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_acustica =</span> acousticness,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">escore_ao_vivo =</span> liveness,</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">tempo =</span> tempo,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">duracao_ms =</span> duration_ms,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">valencia =</span> valence</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>        escore_danca, escore_energia, escore_sonoridade, escore_fala, escore_acustica,</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>        escore_ao_vivo, tempo, duracao_ms</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Aqui estamos supondo que as escalas das variáveis do banco de dados que foi utilizado para estimação do modelo e desse banco de dados que usaremos para as previsões são similares, mas isso poderia ser investigado com mais cuidado. Além disso, esse exercício de previsão poderia ser considerado dispensável, dado que temos disponível a variável <code>valencia</code> também para as variáveis dessa <em>playlist</em>. Porém, supondo que os coeficientes estimados no modelo anterior conseguem explicar parte da variabilidade da <strong>positividade</strong> das músicas em geral, entendemos que esse modelo possa ser utilizado no caso brasileiro.</p>
+<p>Dessa forma, podemos obter as previsões das probabilidades fazendo o cálculo das probabilidades:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">cbind</span>(<span class="dv">1</span>, variaveis_predicao))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>preditor_linear <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">matrix</span>(<span class="fu">coef</span>(modelo), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>numerador <span class="ot">&lt;-</span> <span class="fu">exp</span>(preditor_linear)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>denominador <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> numerador</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>top_10 <span class="ot">&lt;-</span> musicas_dia_faxina <span class="sc">%&gt;%</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">probabilidades =</span> <span class="fu">as.numeric</span>(numerador <span class="sc">/</span> denominador)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(probabilidades)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(artist_full, tracks, probabilidades) <span class="sc">%&gt;%</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(top_10)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 53%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">artist_full</th>
+<th style="text-align: left;">tracks</th>
+<th style="text-align: right;">probabilidades</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Seu Jorge</td>
+<td style="text-align: left;">Amiga Da Minha Mulher</td>
+<td style="text-align: right;">0.9745518</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Henrique &amp; Diego feat. Dennis DJ</td>
+<td style="text-align: left;">Malbec (Part. Dennis Dj) (feat. Dennis DJ) - Ao Vivo</td>
+<td style="text-align: right;">0.9198087</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Zé Felipe feat. Menor</td>
+<td style="text-align: left;">Você Não Vale Nada</td>
+<td style="text-align: right;">0.8787458</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">João Lucas &amp; Marcelo feat. MC K9</td>
+<td style="text-align: left;">Louquinha (feat. MC K9)</td>
+<td style="text-align: right;">0.8498655</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MC Guime feat. Emicida</td>
+<td style="text-align: left;">País do Futebol</td>
+<td style="text-align: right;">0.8496449</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Thiaguinho feat. Ludmilla</td>
+<td style="text-align: left;">Só Vem! - Ao Vivo</td>
+<td style="text-align: right;">0.8473463</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Atitude 67</td>
+<td style="text-align: left;">Cerveja De Garrafa (Fumaça Que Eu Faço) - Ao Vivo</td>
+<td style="text-align: right;">0.8346313</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Maiara &amp; Maraisa</td>
+<td style="text-align: left;">10% - Ao Vivo</td>
+<td style="text-align: right;">0.8227158</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">POCAH</td>
+<td style="text-align: left;">Não sou obrigada</td>
+<td style="text-align: right;">0.8210113</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MC Loma e As Gêmeas Lacração</td>
+<td style="text-align: left;">Envolvimento</td>
+<td style="text-align: right;">0.8205628</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Essas seriam então as dez músicas com maiores probabilidades segundo o modelo construído anteriormente. Poderíamos fazer algumas perguntas pra esses resultado: * estaria o modelo fazendo sentido de alguma maneira? * Seria razoável utilizar os coeficientes estimados nessa outra base de dados? * Poderíamos ter considerado critérios de seleção de variáveis e de regularização dos coeficientes. Qual o efeito dessas escolhas nesse problema?</p>
+<p>Todas essas questões são pertinentes e poderão ser tratadas em <em>posts</em> específicos no futuro. Nesse momento, gostaríamos apenas de ressaltar a possibilidade de utilizarmos modelos probabilísticos para fazer uma tarefa que talvez não usual, como pensar numa <em>playlist</em> no Spotify. Aqui também aproveitamos para mostrar também como fazer esse tipo de consultas usando a respectiva API.</p>
+<section id="informações-adicionais" class="level2">
+<h2 class="anchored" data-anchor-id="informações-adicionais">Informações adicionais</h2>
+<p>Com relação à escolha do valor intermediário em que fixamos o valor igual a 0,5, podemos variar essa quantidade e verificar se nossa inferência com relação aos parâmetros se altera. Para isso, podemos utilizar os quantis da variável <code>valencia</code> conforme:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sequencia_quantis <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>quantis_valencia <span class="ot">&lt;-</span> <span class="fu">quantile</span>(todas_musicas<span class="sc">$</span>valencia, sequencia_quantis)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Podemos usar o objeto <code>quantis_valencia</code> e estimar o modelo diversas vezes, guardando as estimativas obtidas ao final, assim como o valor da variável resposta utilizada.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(quantis_valencia), <span class="cf">function</span>(a) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    todas_musicas <span class="ot">&lt;-</span> todas_musicas <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">valencia_cat =</span> <span class="fu">cut</span>(valencia, <span class="fu">c</span>(<span class="dv">0</span>, quantis_valencia[a], <span class="dv">1</span>)))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    data_model<span class="sc">$</span>outcome <span class="ot">&lt;-</span> todas_musicas<span class="sc">$</span>valencia_cat</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    modelo_lista <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(outcome <span class="sc">~</span> .,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> data_model,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">prior =</span> t_prior, <span class="at">prior_intercept =</span> t_prior,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">QR =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">seed =</span> <span class="dv">12345678</span>, <span class="at">refresh =</span> <span class="dv">0</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    coeficientes <span class="ot">&lt;-</span> <span class="fu">coef</span>(modelo_lista)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    intervalos <span class="ot">&lt;-</span> <span class="fu">posterior_interval</span>(modelo_lista, <span class="at">prob =</span> <span class="fl">0.95</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    valores <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">coef =</span> coeficientes,</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">lim_inf =</span> intervalos[, <span class="dv">1</span>],</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">lim_sup =</span> intervalos[, <span class="dv">2</span>],</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">valor_quantil =</span> sequencia_quantis[a]</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    valores <span class="ot">&lt;-</span> <span class="fu">mutate</span>(valores, <span class="at">nome =</span> <span class="fu">names</span>(coeficientes))</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    valores</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>todas_estimativas <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind.data.frame, resultados)</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(todas_estimativas, <span class="fu">aes</span>(<span class="at">x =</span> valor_quantil)) <span class="sc">+</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> coef)) <span class="sc">+</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> lim_inf), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> lim_sup), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>nome) <span class="sc">+</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Quantis de valencia"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Coeficientes e intervalo de credibilidade de 95%"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="unnamed-chunk-15-1.png" class="img-fluid"><!-- -->
+</center>
+<p>O resultado mostrado no gráfico acima é interessante pois mostra que independente da escolha que fizéssemos pra o ponto de corte, quando criamos a variável categórica, teríamos obtido as mesmas estimativas praticamente, com exceção de alguns valores mais extremos dos quantis. Com relação ao intercepto, é natural a variação observada tendo em vista a interpretação desse parâmetro para o modelo logístico.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
