@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Agatha S. Rodrigues">
+<meta name="description" content="Neste post, vamos analisar alguns números do canal do YouTube chamado Meteoro Brasil. Utilizaremos o R, apresentando os vídeos que se destacam em algumas estatísticas.">
+
+<title>Analisando o melhor canal do YouTube</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../..//img/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background-image: url(banner.png);
+background-size: cover;
+      }
+</style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../img/daslab-logo-removebg.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../sobre/index.html"> 
+<span class="menu-text">Sobre</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projetos/index.html"> 
+<span class="menu-text">Projetos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutoriais/index.html"> 
+<span class="menu-text">Tutoriais</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../ensinar/index.html"> 
+<span class="menu-text">ensinaR</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../oobr/index.html"> 
+<span class="menu-text">OOBr</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../eventos/index.html"> 
+<span class="menu-text">Eventos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../contato/index.html"> 
+<span class="menu-text">Contato</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Analisando o melhor canal do YouTube</h1>
+                  <div>
+        <div class="description">
+          Neste post, vamos analisar alguns números do canal do YouTube chamado Meteoro Brasil. Utilizaremos o R, apresentando os vídeos que se destacam em algumas estatísticas.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Análise de Dados</div>
+                <div class="quarto-category">Estatística</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">Data Wrangling</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor</div>
+      <div class="quarto-title-meta-contents">
+               <p>Agatha S. Rodrigues </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Data de Publicação</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">1 de julho de 2020</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<style>
+body {
+    background: white;
+}
+
+.quarto-title-banner{
+    text-align: left !important;
+}
+</style>
+<p>O canal <strong>Meteoro Brasil</strong> é o melhor canal do YouTube, segundo a opinião desta que aqui escreve. De acordo com a descrição do próprio <a href="https://www.youtube.com/channel/UCk5BcU1rOy6hepflk7_q_Pw">canal</a>, o Meteoro é um canal sobre cultura pop, ciência e filosofia. Mas eu diria que é mais que isso. A Mulher Mais Sábia e o Cara Mais Simples (donos do canal) conectam esses temas de maneira brilhante e com bastante sensibilidade. Para exemplificar meu ponto, dentre muitos vídeos ótimos do canal, destaco dois vídeos.</p>
+<p>O primeiro é o vídeo <a href="https://www.youtube.com/watch?v=4y411GG_pfA">Emicida Celebra Você</a>, que analisa a poderosa música “AmarElo” do Emicida e a presença nela dos versos potentes de Belchior (falaremos desse cara mais pra frente).</p>
+<center>
+<a href="https://www.youtube.com/watch?v=4y411GG_pfA"><img src="https://img.youtube.com/vi/4y411GG_pfA/0.jpg" class="img-fluid"></a>
+</center>
+<p>O segundo vídeo é o <a href="https://www.youtube.com/watch?v=31gvTYL8U38">Tentando Lidar com as Circunstâncias</a>. Sobre este, apenas deixo como um pequeno <em>spoiler</em> um trecho do poema de Rainer Maria Rilke:</p>
+<blockquote class="blockquote">
+<p>Deixe tudo acontecer com você: beleza e terror. <br> Apenas continue. <br> Nenhum sentimento é final<br></p>
+</blockquote>
+<p>(uma lembrança para uma amiga muito especial).</p>
+<center>
+<a href="https://www.youtube.com/watch?v=31gvTYL8U38"><img src="https://img.youtube.com/vi/31gvTYL8U38/0.jpg" class="img-fluid"></a>
+</center>
+<!--Eles tem um lema que gosto bastante: "Não importa o que eu acho, importa o que eu sei!". -->
+<p>Nesse <strong>post</strong>, vamos analisar alguns números do canal com o <a href="https://www.r-project.org/">R</a>, apresentando os vídeos que se destacam em algumas estatísticas. Para isso, vamos utilizar o pacote <a href="https://cran.r-project.org/web/packages/tuber/tuber.pdf">tuber</a>, que permite acessar a API do YouTube para ter acesso a diversos dados de um canal ou vídeo específico, como o número de visualizações, número de likes (curtidas), número de dislikes e comentários de vídeos.</p>
+<p>Antes de tudo, precisamos instalar o pacote. Podemos fazer isso por meio do comando <code>install.packages("tuber")</code> ou então obtendo pelo GitHub do autor do pacote <code>devtools::install_github("soodoku/tuber", build_vignettes = TRUE)</code>.</p>
+<p>A segunda tarefa consiste em obter o <code>app_id</code> e <code>app_secret</code> do console de desenvolvimento da Google. Para isso, clique <a href="console.developers.google.com">aqui</a> e siga as orientações de configuração e, para ter mais informações, clique neste <a href="https://developers.google.com/youtube/v3">link</a>. Se a tarefa de obter esses códigos de acesso não for muito tranquila, posso criar um post separado explicando como obtê-los.</p>
+<p>Com os códigos de acesso devidamente obtidos, o próximo passo é rodar o o código abaixo:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">yt_oauth</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">app_id =</span> <span class="st">"ID"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">app_secret =</span> <span class="st">"PASS"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Agora precisamos saber o <em>id</em> do canal para ter as informações disponíveis sobre ele. Para identificar o <em>id</em> do <strong>Meteoro Brasil</strong> podemos rodar o seguinte comando:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">yt_search</span>(<span class="at">term =</span> <span class="st">"Meteoro Brasil"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Com o comando acima, descobrimos que o <em>id</em> do canal é <code>UCk5BcU1rOy6hepflk7_q_Pw</code>. Nesse momento, quero saber as estatísticas gerais do canal e utilizo para isso a função <code>get_channel_stats</code> do pacote <a href="https://cran.r-project.org/web/packages/tuber/tuber.pdf">tuber</a>.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_channel_stats</span>(<span class="st">"UCk5BcU1rOy6hepflk7_q_Pw"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>A data da realização das análises é 27 de junho de 2020 e todos os números apresentados nesse post são relativos a essa data. O canal apresenta um total de 83043689 visualizações e 813000 inscritos.</p>
+<p>Para a manipulação dos vídeos do canal e organizar suas informações em um banco de dados, vamos usar os seguintes pacotes:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># transformar dados</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble) <span class="co"># criar dataframes</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># manipular datas</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr) <span class="co"># manipular texto</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(abjutils) <span class="co"># lidar com texto em português</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr) <span class="co"># criar funcionais</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrrlyr) <span class="co"># criar funcionais</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># fazer gráficos lindos</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork) <span class="co"># ajudar mais ainda com gráficos lindos</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud) <span class="co"># criar nuvem de palavras</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot) <span class="co"># criar correlogramas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Vamos novamente usar a função <code>yt_search</code>, mas agora para obter os vídeos do canal. Além disso, vamos também criar uma coluna <code>data</code> com a data da publicação de cada vídeo.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>videos <span class="ot">&lt;-</span> <span class="fu">yt_search</span>(<span class="at">term =</span> <span class="st">""</span>, <span class="at">type =</span> <span class="st">"video"</span>, <span class="at">channel_id =</span> <span class="st">"UCk5BcU1rOy6hepflk7_q_Pw"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>videos <span class="ot">&lt;-</span> videos <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">as.Date</span>(publishedAt)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(data)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>No objeto <code>videos</code> temos um dataframe com todos os vídeos do canal. Dois argumentos úteis da função <code>yt_search</code> são <code>published_after</code> e <code>published_before</code> para indicar o período de interesse dos vídeos. Como queremos obter todos os vídeos do canal, deixamos esses argumentos sem restrição.</p>
+<p>O próximo passo é obter as estatísticas de cada vídeo. Temos disponíveis as informações de número de visualizações (no código abaixo chamamos de <code>Nvisua</code>), número de likes (<code>Nlikes</code>), número de dislikes (<code>Ndislikes</code>) e número de comentários (<code>Ncomentarios</code>).</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>videostats <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">as.character</span>(videos<span class="sc">$</span>video_id), <span class="cf">function</span>(x) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_stats</span>(<span class="at">video_id =</span> x)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>videostats <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind.data.frame, videostats)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>videostats<span class="sc">$</span>titulo <span class="ot">&lt;-</span> videos<span class="sc">$</span>title</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>videostats<span class="sc">$</span>data <span class="ot">&lt;-</span> videos<span class="sc">$</span>data</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>videostats <span class="ot">&lt;-</span> videostats <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">Nvisua =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(viewCount)),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">Nlikes =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(likeCount)),</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">Ndislikes =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(dislikeCount)),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">Ncomentarios =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(commentCount))</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id, titulo, data, Nvisua, Nlikes, Ndislikes, Ncomentarios)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>O dataframe <code>videostats</code> tem 7 colunas (id, titulo, data, Nvisua, Nlikes, Ndislikes, Ncomentarios) e 487 linhas, cada uma referente a um vídeo do canal. Logo, na data da presente análise, o canal tem 487 vídeos.</p>
+<p>Para nos familiarizarmos com as variávies na base de dados <code>videostats</code>, uma primeira informação que gostaria de saber é sobre o primeiro vídeo publicado no canal. Para isso, podemos usar o comando</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># primeiro vídeo do canal</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(data <span class="sc">==</span> <span class="fu">min</span>(data))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 41%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>id</th>
+<th>titulo</th>
+<th>data</th>
+<th>Nvisua</th>
+<th>Nlikes</th>
+<th>Ndislikes</th>
+<th>Ncomentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DVpC21wJ4qo</td>
+<td>Steven Universe, sexualidade e estupro - Meteoro</td>
+<td>2017-04-10</td>
+<td>206544</td>
+<td>30434</td>
+<td>976</td>
+<td>1198</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Com isso, sabemos que o primeiro vídeo foi publicado no dia 10 de abril de 2017 e desde então acumulou 206544 visualizações, com 30434 likes, 976 dislikes e 1198 comentários. Este foi um vídeo sobre o desenho animado <a href="https://www.youtube.com/watch?v=DVpC21wJ4qo">Steven Universe</a>, em que discutem as metáforas do desenho que aborda, de maneira sutil, questões de gênero e até violência sexual. Como todo início de canal no YouTube, percebemos que muito foi melhorado desde então, principalmente as questões técnicas, mas ali já dava para perceber a sensibilidade ao analisar a cultura pop além da superfície.</p>
+<!-- [![](https://img.youtube.com/vi/DVpC21wJ4qo/0.jpg)](https://www.youtube.com/watch?v=DVpC21wJ4qo) PRIVADO-->
+<p>Uma impressão que tenho como fã assídua do canal é que ele tem publicado mais vídeos no ano de 2020. Para avaliar se minha impressão faz algum sentido, fiz uma análise do número de vídeos publicados por mês desde a inauguração do canal até o mês atual da análise.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>video_aux <span class="ot">&lt;-</span> videostats <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ano =</span> <span class="fu">year</span>(data), <span class="at">mes =</span> <span class="fu">month</span>(data, <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(ano, mes) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">quant_videos =</span> <span class="fu">n</span>())</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>video_aux<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">str_sub</span>(video_aux<span class="sc">$</span>ano, <span class="at">start =</span> <span class="sc">-</span><span class="dv">2</span>), video_aux<span class="sc">$</span>mes, <span class="at">sep =</span> <span class="st">"-"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>video_aux<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">factor</span>(video_aux<span class="sc">$</span>date, <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"17-abr"</span>, <span class="st">"17-jun"</span>, <span class="st">"17-jul"</span>, <span class="st">"17-ago"</span>, <span class="st">"17-set"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"17-out"</span>, <span class="st">"17-nov"</span>, <span class="st">"17-dez"</span>, <span class="st">"18-jan"</span>, <span class="st">"18-fev"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"18-mar"</span>, <span class="st">"18-abr"</span>, <span class="st">"18-mai"</span>, <span class="st">"18-jun"</span>, <span class="st">"18-jul"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"18-ago"</span>, <span class="st">"18-set"</span>, <span class="st">"18-out"</span>, <span class="st">"18-nov"</span>, <span class="st">"18-dez"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"19-jan"</span>, <span class="st">"19-fev"</span>, <span class="st">"19-mar"</span>, <span class="st">"19-abr"</span>, <span class="st">"19-mai"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"19-jun"</span>, <span class="st">"19-jul"</span>, <span class="st">"19-ago"</span>, <span class="st">"19-set"</span>, <span class="st">"19-out"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"19-nov"</span>, <span class="st">"19-dez"</span>, <span class="st">"20-jan"</span>, <span class="st">"20-fev"</span>, <span class="st">"20-mar"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"20-abr"</span>, <span class="st">"20-mai"</span>, <span class="st">"20-jun"</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>video_aux <span class="sc">%&gt;%</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> quant_videos)) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ano e mês"</span>, <span class="at">y =</span> <span class="st">"Número de videos"</span>) <span class="sc">+</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="Num_videos_bar.png" class="img-fluid"><!-- -->
+</center>
+<p>Podemos perceber uma crescente no número de vídeos publicados nos meses mais recentes e maio de 2020 é o mês com mais vídeos publicados. Também quero saber quantos vídeos foram publicados no período de janeiro a maio de cada ano. Como em 2017 só teve vídeo a partir de abril, esse ano não entrará nessa análise.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ano =</span> <span class="fu">year</span>(data), <span class="at">mes =</span> <span class="fu">month</span>(data, <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(ano, mes) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">quant_videos =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(ano <span class="sc">&gt;=</span> <span class="dv">2018</span> <span class="sc">&amp;</span> (mes <span class="sc">==</span> <span class="st">"jan"</span> <span class="sc">|</span> mes <span class="sc">==</span> <span class="st">"fev"</span> <span class="sc">|</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        mes <span class="sc">==</span> <span class="st">"mar"</span> <span class="sc">|</span> mes <span class="sc">==</span> <span class="st">"abr"</span> <span class="sc">|</span> mes <span class="sc">==</span> <span class="st">"mai"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(ano) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">quant_videos =</span> <span class="fu">sum</span>(quant_videos))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>ano</th>
+<th>quant_videos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><dbl></dbl></td>
+<td><int></int></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>2018</td>
+<td>41</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2019</td>
+<td>55</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>2020</td>
+<td>134</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--Como resultado, no período de janeiro a maio, foram 41 vídeos publicados em 2018, em 2019 foram 55, e em 2020, o total de número publicados é de 134 vídeos. Ou seja, -->
+<p>Em 2020 o número de vídeos publicados representa 326% e 243% dos vídeos publicados em 2018 e 2019, respectivamente, para o mesmo período observado, corroborando também a minha impressão.</p>
+<p>Agora, gostaria de avaliar o número de visualizações pela data da publicação do vídeo. Para isso, analisamos o seguinte gráfico:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> data, <span class="at">y =</span> Nvisua)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Data da publicação"</span>, <span class="at">y =</span> <span class="st">"Número de visualizações"</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"5 months"</span>, <span class="at">date_labels =</span> <span class="st">"%b %y"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">500000</span>, <span class="at">colour =</span> <span class="st">"500 mil views"</span>)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">1000000</span>, <span class="at">colour =</span> <span class="st">"1 Milhão views"</span>)) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">""</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="visua.png" class="img-fluid"><!-- -->
+</center>
+<p>Ao analisar o gráfico acima e com a ajuda dos códigos apresentados abaixo, observamos que 11 vídeos acumulam mais de 500 mil visualizações e há 2 vídeos que apresentam mais de 1 milhão de visualizações.</p>
+<!--Vale ressaltar que nem são os canais mais velhos, que teriam a vantagem de mais tempo para serem vistos, e nem os mais recentes, que tem a vantagem de ter mais inscritos. -->
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># títulos dos vídeos com mais de 500 mil visualizações</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Nvisua <span class="sc">&gt;</span> <span class="dv">500000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(titulo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>titulo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>COMO GORILLAZ SALVOU O ROCK #Meteoro</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>DECIFRANDO THIS IS AMERICA #meteoro.doc</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>VOCÊ FOI ENGANADO #meteoro.doc</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>10 RAZÕES PARA DELETAR SUAS REDES SOCIAIS #meteoro.doc</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>QUEM É OLAVO DE CARVALHO? #meteoro.doc</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>QUEM É NANDO MOURA? #meteoro.doc</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>POBRE BETTINA… #meteoro.doc</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>QUEM É O DONO DA HAVAN? #meteoro.doc</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>RACIONAIS: POR UM BRASIL MENOS IGNORANTE #meteoro.doc</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>RAUL SEIXAS, O TEÓLOGO #meteoro.doc</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>QUEM É SARA WINTER</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># títulos dos vídeos com mais de 1 milhão de visualizações</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Nvisua <span class="sc">&gt;</span> <span class="dv">1000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(titulo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>titulo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>DECIFRANDO THIS IS AMERICA #meteoro.doc</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>QUEM É OLAVO DE CARVALHO? #meteoro.doc</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>O vídeo mais visto do canal é <a href="https://www.youtube.com/watch?v=gvsQ09wM-bU">“Decifrando This is America”</a>, em que exploram as mensagens contidas no clipe “This is America” de Childish Gambino. O vídeo foi publicado em maio de 2018 e tem 1507086 visualizações acumuladas desde então.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vídeo com maior número de visualizações</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Nvisua <span class="sc">==</span> <span class="fu">max</span>(Nvisua))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 40%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>id</th>
+<th>titulo</th>
+<th>data</th>
+<th>Nvisua</th>
+<th>Nlikes</th>
+<th>Ndislikes</th>
+<th>Ncomentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>gvsQ09wM-bU</td>
+<td>DECIFRANDO THIS IS AMERICA #meteoro.doc</td>
+<td>2018-05-08</td>
+<td>1507086</td>
+<td>128120</td>
+<td>1630</td>
+<td>2943</td>
+</tr>
+</tbody>
+</table>
+</div>
+<center>
+<a href="https://www.youtube.com/watch?v=gvsQ09wM-bU"><img src="https://img.youtube.com/vi/gvsQ09wM-bU/0.jpg" class="img-fluid"></a>
+</center>
+<p>O canal apresenta, em média, 151720 visualizações por vídeo, com um desvio padrão de 130611 visualizações, como podemos ver por meio de algumas medidas descritivas do número de visualizações abaixo:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># medidas descritivas do número de visualizações</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">min =</span> <span class="fu">min</span>(Nvisua, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">media =</span> <span class="fu">mean</span>(Nvisua, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">mediana =</span> <span class="fu">median</span>(Nvisua, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">dp =</span> <span class="fu">sd</span>(Nvisua, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> <span class="fu">max</span>(Nvisua, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr class="header">
+<th>min</th>
+<th>media</th>
+<th>mediana</th>
+<th>dp</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>13547</td>
+<td>151719.9</td>
+<td>125405</td>
+<td>130610.9</td>
+<td>1507086</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--Já o vídeo menos visto foi o quarto vídeo de uma série de Capivara Carteira, que eles leem mensagem dos inscritos em um momento que a identidade deles é desconhecida.
+
+#            id                                        titulo       data Nvisua Nlikes Ndislikes Ncomentarios
+# 20 IHGGZq0CyI4 Capivara Carteira #04 - aniversário - Meteoro 2017-10-07  13547   3361        11         1061 -->
+<p>Quando analisamos apenas o número de visualizações, como na análise anterior, não estamos levando em consideração o fato de que vídeos mais antigos tem mais tempo de disponibilidade para visualização, privilegiando assim os vídeos mais antigos. Mas, por outro lado, há um segundo argumento de que os vídeos mais recentes tem a vantagem do canal ter mais inscritos e, possivelmente, ser visto por mais inscritos no momento de sua publicação. Esse último argumento faz sentido se pensarmos que, em geral, as pessoas raramente assistem aos vídeos mais antigos quando se inscrevem nos canais. Mas estas são apenas algumas hipóteses e, ao analisar o número de visualizações corrigindo pela idade do vídeo no gráfico abaixo, me parece que o segundo argumento faz algum sentido.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">idade =</span> <span class="fu">as.numeric</span>(<span class="fu">Sys.Date</span>() <span class="sc">-</span> data)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> data, <span class="at">y =</span> Nvisua <span class="sc">/</span> idade)) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Data da publicação"</span>, <span class="at">y =</span> <span class="st">"Visualizações/Idade"</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"5 months"</span>, <span class="at">date_labels =</span> <span class="st">"%b %y"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="visua_idade.png" class="img-fluid"><!-- -->
+</center>
+<p>Uma próxima análise que gostaria de avaliar é o número de likes relativo ao número de visualizações. No gráfico abaixo está a porcentagem de likes pela data da publicação do vídeo.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">prop_like =</span> Nlikes <span class="sc">/</span> Nvisua) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> data, <span class="at">y =</span> prop_like)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Data da publicação"</span>, <span class="at">y =</span> <span class="st">"Proporção de likes"</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"5 months"</span>, <span class="at">date_labels =</span> <span class="st">"%b %y"</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="prop_like.png" class="img-fluid"><!-- -->
+</center>
+<p>O video com maior porcentagem de likes (28,75%) é episódio 10 da série <a href="https://www.youtube.com/watch?v=-fDHDUH0Fjk">Capivara Carteira</a>. Nesse episódio, o Cara Mais Simples faz uma homenagem para a Mulher Mais Sábia no dia de seu aniversário. Mas alguém pode dizer: “Para que tanto like relativo em um vídeo de homenagem?”. Eu me arrisco a afirmar que esta é uma homenagem com a cara do Meteoro, novamente com sensibilidade, sinceridade e poesia, e talvez isso justifique o <em>feedback</em> positivo daqueles que assistiram. <!--e o com menor porcentagem de likes é "Raul Seixas, o teólogo", que
+fala sobre a obra prima Gita de Raul Seixas e Paulo Coelho. --></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vídeo com maior número de likes relativo ao número de visualizações</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">prop_like =</span> Nlikes <span class="sc">/</span> Nvisua) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(prop_like <span class="sc">==</span> <span class="fu">max</span>(prop_like))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 35%">
+<col style="width: 11%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>id</th>
+<th>titulo</th>
+<th>data</th>
+<th>Nvisua</th>
+<th>Nlikes</th>
+<th>Ndislikes</th>
+<th>Ncomentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>134 -fDHDUH0Fjk</td>
+<td>GRANDE DIA | Capivara Carteira #10</td>
+<td>2018-10-07</td>
+<td>31323</td>
+<td>9007</td>
+<td>110</td>
+<td>1760</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- #            id                              titulo       data Nvisua Nlikes Ndislikes Ncomentarios  prop_like
+#215 yD6q4n7d6FQ RAUL SEIXAS, O TEÓLOGO #meteoro.doc 2019-05-25 806161  33927       882         1490 0.04208465-->
+<center>
+<a href="https://www.youtube.com/watch?v=-fDHDUH0Fjk"><img src="https://img.youtube.com/vi/-fDHDUH0Fjk/0.jpg" class="img-fluid"></a>
+</center>
+<p>Gostaria agora de analisar também o número de dislikes dos vídeos. Para isso, fiz um gráfico da razão entre likes e dislikes dos vídeos pela data de publicação do vídeo.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">like_dislike =</span> Nlikes <span class="sc">/</span> Ndislikes) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> data, <span class="at">y =</span> like_dislike)) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Data da publicação"</span>, <span class="at">y =</span> <span class="st">"Likes/Dislikes"</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"5 months"</span>, <span class="at">date_labels =</span> <span class="st">"%b %y"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="like_dislike.png" class="img-fluid"><!-- -->
+</center>
+<p>Uma primeira observação que destaco é o fato de não ter nenhuma razão menor que 1, indicando que os vídeos do canal sempre tem mais likes que dislikes. O canal com a menor razão like/dislike é o vídeo <a href="https://www.youtube.com/watch?v=J7yZMlb8ruo">ELENÃO</a> (likes/dislikes=1,87), que aborda o movimento #elenão, formado por mulheres indo às ruas para expressar a rejeição para o então candidato e atual presidente (infelizmente) Bolsonaro. Faz um certo sentido pensar que o vídeo com a menor razão de likes/dislikes ser algum que incorpora a questão política, uma vez que estamos em uma situação de bastante polarização no país.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vídeo com menor razão de like e dislike</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">like_dislike =</span> Nlikes <span class="sc">/</span> Ndislikes) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(like_dislike <span class="sc">==</span> <span class="fu">min</span>(like_dislike))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 25%">
+<col style="width: 13%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>id</th>
+<th>titulo</th>
+<th>data</th>
+<th>Nvisua</th>
+<th>Nlikes</th>
+<th>Ndislikes</th>
+<th>Ncomentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>131 J7yZMlb8ruo</td>
+<td>#ELENÃO #meteoro.exp</td>
+<td>2018-09-30</td>
+<td>132199</td>
+<td>21003</td>
+<td>11230</td>
+<td>14605</td>
+</tr>
+</tbody>
+</table>
+</div>
+<center>
+<a href="https://www.youtube.com/watch?v=J7yZMlb8ruo"><img src="https://img.youtube.com/vi/J7yZMlb8ruo/0.jpg" class="img-fluid"></a>
+</center>
+<p>Para analisar o número de comentários nos vídeos, faço agora um gráfico dessa variável pela data de publicação do vídeo, apresentado no que segue:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> data, <span class="at">y =</span> Ncomentarios)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Data da publicação"</span>, <span class="at">y =</span> <span class="st">"Número de comentários"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="comentarios.png" class="img-fluid">
+</center>
+<p>O vídeo com maior número de comentários é <a href="https://www.youtube.com/watch?v=Mz9f3fLks9s">Quem é Olavo de Carvalho?</a>, com um total de 25971 comentários. Eu fortemente recomendo esse vídeo e para justificar minha recomendação, vou colocar aqui a sua descrição:</p>
+<blockquote class="blockquote">
+<p>Olavo de Carvalho, antes de se definir como o “parteiro da nova direita”, foi militante de esquerda e astrólogo. Aqui, olhamos para a biografia contraditória e controversa desse personagem, na tentativa de entender como ele conseguiu transformar suas ficções em realidade.</p>
+</blockquote>
+<p>Vale um parênteses aqui de algo que lembrei agora: o Meteoro Brasil lançou o livro <strong>Tudo o que você precisou desaprender para virar um idiota</strong>. Esse livro explica a ficção e da realidade por trás de kit gay, marxismo cultural, gramscismo, Lei Rouanet, mudança climática, Paulo Freire, globalismo, vacinas e muito mais (frase retirada do resumo no site da <a href="https://www.amazon.com.br/Tudo-precisou-desaprender-virar-idiota/dp/8542217756/ref=asc_df_8542217756/?tag=googleshopp00-20&amp;linkCode=df0&amp;hvadid=379792431986&amp;hvpos=&amp;hvnetw=g&amp;hvrand=4496352622355239333&amp;hvpone=&amp;hvptwo=&amp;hvqmt=&amp;hvdev=c&amp;hvdvcmdl=&amp;hvlocint=&amp;hvlocphy=1001549&amp;hvtargid=pla-850164298977&amp;psc=1">Amazon</a>). Ok, talvez meu parênteses sobre esse livro estar na parte do texto que falo sobre Olavo de Carvalho não seja apenas uma coincidência…</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vídeo com maior número de comentários</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Ncomentarios <span class="sc">==</span> <span class="fu">max</span>(Ncomentarios))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 34%">
+<col style="width: 11%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>id</th>
+<th>titulo</th>
+<th>data</th>
+<th>Nvisua</th>
+<th>Nlikes</th>
+<th>Ndislikes</th>
+<th>Ncomentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>56 Mz9f3fLks9s</td>
+<td>QUEM É OLAVO DE CARVALHO? #meteoro.doc</td>
+<td>2018-11-30</td>
+<td>1025781</td>
+<td>111184</td>
+<td>37366</td>
+<td>25971</td>
+</tr>
+</tbody>
+</table>
+</div>
+<center>
+<a href="https://www.youtube.com/watch?v=Mz9f3fLks9s"><img src="https://img.youtube.com/vi/Mz9f3fLks9s/0.jpg" class="img-fluid"></a>
+</center>
+<p>Agora, uma análise que gostaria de realizar é a correlação entre os números de visualizações, likes, dislikes e comentários dos vídeos. Pelos gráficos abaixo, observamos que há uma correlação bastante positiva entre número de visualizações e número de likes, assim como entre o número de dislikes e o número de comentários. Refiz a mesma análise sem os pontos muito discrepantes e os resultados foram bem parecidos.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gráficos de dispersão</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>variaveis <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Nvisua"</span>, <span class="st">"Nlikes"</span>, <span class="st">"Ndislikes"</span>, <span class="st">"Ncomentarios"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>variaveis.labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nº de visualizações"</span>, <span class="st">"nº de likes"</span>, <span class="st">"nº de dislikes"</span>, <span class="st">"nº de comentários"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(variaveis) <span class="sc">-</span> <span class="dv">1</span>)) {</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> (i <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(variaveis)) {</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        p <span class="ot">&lt;-</span> videostats <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">select</span>(<span class="at">xvar =</span> variaveis[i], <span class="at">yvar =</span> variaveis[j]) <span class="sc">%&gt;%</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> xvar, <span class="at">y =</span> yvar)) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">x =</span> variaveis.labels[i], <span class="at">y =</span> variaveis.labels[j])</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">assign</span>(<span class="fu">paste</span>(<span class="st">"p"</span>, l, <span class="at">sep =</span> <span class="st">""</span>), p)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        l <span class="ot">&lt;-</span> l <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3) <span class="sc">/</span> (p4 <span class="sc">|</span> p5 <span class="sc">|</span> p6)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="graficos_dispersao1.png" class="img-fluid"><!-- -->
+</center>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>videos_aux <span class="ot">&lt;-</span> videostats <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Nvisua, Nlikes, Ndislikes, Ncomentarios)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(<span class="fu">cor</span>(videos_aux))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="corr_plot.png" class="img-fluid"><!-- -->
+</center>
+<p>A partir daqui, quero falar do meu vídeo favorito no canal: <a href="https://www.youtube.com/watch?v=u_2biKBWO0I">Revelando Belchior</a>. O fato de falar sobre Belchior auxilia bastante nesse favoritismo. Além disso, eles fazem uma análise de duas músicas do artista que eu particularmente adoro: “Como Nossos Pais” e “Velha Roupa Colorida”, também interpretadas pela maravilhosa Elis Regina, relacionando seus versos com temas do Brasil atual.</p>
+<center>
+<a href="https://www.youtube.com/watch?v=u_2biKBWO0I"><img src="https://img.youtube.com/vi/u_2biKBWO0I/0.jpg" class="img-fluid"></a>
+</center>
+<p>Desse vídeo, vamos analisar seus comentários e para isso, precisamos saber o seu <em>id</em>.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>videostats <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="st">"BELCHIOR"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="table-responsive">
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 13%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>id</th>
+<th>titulo</th>
+<th>data</th>
+<th>Nvisua</th>
+<th>Nlikes</th>
+<th>Ndislikes</th>
+<th>Ncomentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>u_2biKBWO0I</td>
+<td>REVELANDO BELCHIOR</td>
+<td>2020-03-04</td>
+<td>165161</td>
+<td>29871</td>
+<td>161</td>
+<td>1377</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>O <em>id</em> do vídeo é <code>u_2biKBWO0I</code> e vamos agora obter todos os comentários disponíveis dele por meio da função <code>get_comment_threads</code> da seguinte maneira:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>comentarios <span class="ot">&lt;-</span> <span class="fu">get_comment_threads</span>(<span class="fu">c</span>(<span class="at">video_id =</span> <span class="st">"u_2biKBWO0I"</span>), <span class="at">max_results =</span> <span class="dv">1500</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Vamos analisar o número de comentários por dia. Pelo gráfico abaixo, podemos observar que, como esperado, o maior número de comentários realmente acontece próximo ao dia da publicação do vídeo.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>comentarios<span class="sc">$</span>data <span class="ot">=</span> <span class="fu">as.Date</span>(comentarios<span class="sc">$</span><span class="er">$</span>publishedAt)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span>  df <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(data) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">year</span>(data), <span class="fu">month</span>(data), <span class="fu">day</span>(data)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>data <span class="ot">=</span> <span class="fu">make_date</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">year(data)</span><span class="st">`</span>, df<span class="sc">$</span><span class="st">`</span><span class="at">month(data)</span><span class="st">`</span>,df<span class="sc">$</span><span class="st">`</span><span class="at">day(data)</span><span class="st">`</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> data, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Data da publicação"</span>, <span class="at">y =</span> <span class="st">"Número de comentários"</span>) <span class="sc">+</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">date_breaks=</span><span class="st">"15 days"</span>,<span class="at">date_labels =</span> <span class="st">"%d %b"</span>) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="Comentarios_Belchior.png" class="img-fluid"><!-- -->
+</center>
+<p>Agora gostaria de construir uma nuvem de palavras contidas nos comentários do vídeo.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>coment_text <span class="ot">&lt;-</span> <span class="fu">as.character</span>(comentarios<span class="sc">$</span>textOriginal)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>oi <span class="ot">&lt;-</span> <span class="fu">lapply</span>(coment_text, <span class="cf">function</span>(x){</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  abjutils<span class="sc">::</span><span class="fu">rm_accent</span>(x) })</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>coment_texto <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">text =</span> <span class="fu">Reduce</span>(c, oi)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">texto =</span> <span class="fu">str_to_lower</span>(text)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(texto) </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>remove <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"voce"</span>,<span class="st">"voces"</span>,<span class="st">"o"</span>,<span class="st">"a"</span>,<span class="st">"os"</span>,<span class="st">"as"</span>,<span class="st">"que"</span>,<span class="st">"muito"</span>,<span class="st">"este"</span>,<span class="st">"esta"</span>,</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"aquele"</span>,<span class="st">"aquela"</span>,<span class="st">"sao"</span>,<span class="st">"para"</span>,<span class="st">"de"</span>,<span class="st">"nao"</span>,<span class="st">"com"</span>,<span class="st">"mais"</span>,<span class="st">"foi"</span>,<span class="st">"era"</span>,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"uma"</span>,<span class="st">"mas"</span>,<span class="st">"ficou"</span>,<span class="st">"meu"</span>,<span class="st">"minha"</span>,<span class="st">"seu"</span>,<span class="st">"sua"</span>,<span class="st">"como"</span>,<span class="st">"apenas"</span>,<span class="st">"essa"</span>,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"esse"</span>,<span class="st">"por"</span>,<span class="st">"favor"</span>,<span class="st">"sempre"</span>,<span class="st">"todo"</span>,<span class="st">"para"</span>,<span class="st">"tem"</span>,<span class="st">"faz"</span>,<span class="st">"pelo"</span>,<span class="st">"sobre"</span>,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"acho"</span>,<span class="st">"isso"</span>,<span class="st">"aqui"</span>,<span class="st">"quando"</span>,<span class="st">"mesmo"</span>,<span class="st">"fala"</span>,<span class="st">"morando"</span>,<span class="st">"minha"</span>,<span class="st">"proximo"</span>,</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"proxima"</span>,<span class="st">"pra"</span>,<span class="st">"sei"</span>,<span class="st">"dos"</span>,<span class="st">"das"</span>,<span class="st">"fazer"</span>,<span class="st">"ver"</span>,<span class="st">"cada"</span>,<span class="st">"desse"</span>,<span class="st">"tipo"</span>,</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ter"</span>,<span class="st">"tambem"</span>,<span class="st">"fiquei"</span>,<span class="st">"num"</span>,<span class="st">"seus"</span>,<span class="st">"tinha"</span>,<span class="st">"vez"</span>,<span class="st">"ainda"</span>,<span class="st">"vai"</span>,<span class="st">"agora"</span>,</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"desde"</span>,<span class="st">"deste"</span>,<span class="st">"sou"</span>,<span class="st">"anos"</span>,<span class="st">"agr"</span>,<span class="st">"tava"</span>,<span class="st">"sera"</span>,<span class="st">"ate"</span>,<span class="st">"poe"</span>,<span class="st">"muita"</span>,</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"vcs"</span>,<span class="st">"outras"</span>,<span class="st">"fizeram"</span>,<span class="st">"conheco"</span>,<span class="st">"feito"</span>,<span class="st">"nos"</span>,<span class="st">"coisa"</span>,<span class="st">"quanto"</span>,</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"todas"</span>,<span class="st">"suas"</span>,<span class="st">"poderia"</span>,<span class="st">"seja"</span>,<span class="st">"pode"</span>,<span class="st">"tanto"</span>,<span class="st">"dessa"</span>,<span class="st">"fez"</span>,<span class="st">"tao"</span>,</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tudo"</span>,<span class="st">"vou"</span>,<span class="st">"ficaria"</span>,<span class="st">"foi"</span>,<span class="st">"pela"</span>,<span class="st">"teu"</span>,<span class="st">"video"</span>,<span class="st">"sobre"</span>,<span class="st">"ser"</span>,<span class="st">"ele"</span>,</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"acima"</span>,<span class="st">"canal"</span>,<span class="st">"todos"</span>,<span class="st">"meio"</span>,<span class="st">"dar"</span>,<span class="st">"trabalho"</span>,<span class="st">"achei"</span>,<span class="st">"sem"</span>,<span class="st">"nas"</span>,</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"falando"</span>,<span class="st">"dele"</span>,<span class="st">"talvez"</span>,<span class="st">"chegou"</span>,<span class="st">"parar"</span>,<span class="st">"paulo"</span>,<span class="st">"olho"</span>,<span class="st">"olho"</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>words <span class="ot">&lt;-</span>  <span class="fu">tibble</span>(<span class="at">palavras =</span> <span class="fu">Reduce</span>(c, <span class="fu">stri_extract_all_words</span>(coment_texto<span class="sc">$</span>texto))) <span class="sc">%&gt;%</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(palavras) <span class="sc">%&gt;%</span> <span class="fu">count</span>() <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">nchar</span>(palavras) <span class="sc">&gt;=</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">15</span> <span class="sc">&amp;</span> palavras <span class="sc">%in%</span> remove <span class="sc">==</span> <span class="cn">FALSE</span>) </span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>pal2 <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">8</span>,<span class="st">"Dark2"</span>)</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(words<span class="sc">$</span>palavras, words<span class="sc">$</span>n, <span class="at">random.order =</span> <span class="cn">FALSE</span>, <span class="at">random.color =</span> <span class="cn">TRUE</span>,<span class="at">rot.per =</span> <span class="fl">0.3</span>,<span class="at">colors=</span>pal2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<center>
+<img src="nuvem_belchior.png" class="img-fluid"><!-- -->
+</center>
+<p>Condicionado aos critérios definidos no código acima, a palavra mais frequente nos comentários (no caso é “Belchior”) é a de maior tamanho na nuvem de palavras e assim por diante.</p>
+<p>De maneira análoga, fiz também a nuvem de palavras obtida pelos comentários do vídeo da música “AmarElo” do Emicida (<a href="https://www.youtube.com/watch?v=4y411GG_pfA">Emicida Celebra Você</a>), citado no início desse <strong>post</strong>, que contém versos da música “Sujeito de Sorte” do Belchior.</p>
+<center>
+<img src="nuvem_emicida.png" class="img-fluid"><!-- -->
+</center>
+<p>Bom, com esse <strong>post</strong> espero ter alcançado alguns objetivos:</p>
+<ol type="1">
+<li><p>Mostrar como analisar os números dos canais e vídeos do YouTube com o R;</p></li>
+<li><p>Divulgar a maravilha que é o canal <strong>Meteoro Brasil</strong> (<a href="https://www.youtube.com/channel/UCk5BcU1rOy6hepflk7_q_Pw">clique aqui para acessar o canal</a>);</p></li>
+<li><p>Falar sobre o Belchior, apresentando o artista para aqueles que talvez não o conheça e, com isso, deixar sempre viva a sua obra.</p></li>
+</ol>
+<p>Bom, é isso! Agora você pode considerar os códigos em R para analisar as estatísticas do seu canal favorito do YouTube, mas só se você quiser. =)</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
