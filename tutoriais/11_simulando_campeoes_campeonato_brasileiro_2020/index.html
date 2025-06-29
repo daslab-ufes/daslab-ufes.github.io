@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -80,7 +80,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "mais correspondência neste documento",
     "search-more-matches-text": "mais correspondências neste documento",
     "search-clear-button-title": "Limpar",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancelar",
     "search-submit-button-title": "Enviar",
     "search-label": "Procurar"
@@ -101,10 +100,10 @@ background-size: cover;
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../img/daslab-logo-removebg.png" alt="" class="navbar-logo">
     </a>
@@ -115,37 +114,37 @@ background-size: cover;
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../sobre/index.html"> 
-<span class="menu-text">Sobre</span></a>
+    <a class="nav-link" href="../../sobre/index.html" rel="" target="">
+ <span class="menu-text">Sobre</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../projetos/index.html"> 
-<span class="menu-text">Projetos</span></a>
+    <a class="nav-link" href="../../projetos/index.html" rel="" target="">
+ <span class="menu-text">Projetos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tutoriais/index.html"> 
-<span class="menu-text">Tutoriais</span></a>
+    <a class="nav-link" href="../../tutoriais/index.html" rel="" target="">
+ <span class="menu-text">Tutoriais</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../ensinar/index.html"> 
-<span class="menu-text">ensinaR</span></a>
+    <a class="nav-link" href="../../ensinar/index.html" rel="" target="">
+ <span class="menu-text">ensinaR</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../oobr/index.html"> 
-<span class="menu-text">OOBr</span></a>
+    <a class="nav-link" href="../../oobr/index.html" rel="" target="">
+ <span class="menu-text">OOBr</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../eventos/index.html"> 
-<span class="menu-text">Eventos</span></a>
+    <a class="nav-link" href="../../eventos/index.html" rel="" target="">
+ <span class="menu-text">Eventos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../contato/index.html"> 
-<span class="menu-text">Contato</span></a>
+    <a class="nav-link" href="../../contato/index.html" rel="" target="">
+ <span class="menu-text">Contato</span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -200,7 +199,6 @@ background-size: cover;
 
 
 
-
 <style>
 body {
     background: white;
@@ -228,7 +226,7 @@ body {
 <p>Pois o nosso objetivo aqui é simplesmente mostrar uma maneira de obter essas probabilidades. Com certeza nossa modelagem não vai ser a única maneira de obtenção dessas probabilidades e outros métodos mais sofisticados poderiam muito bem ser utilizados para estimar esse valor.</p>
 <p>Para iniciar, vamos carregar alguns pacotes que serão utilizados nessa análise:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(highcharter) <span class="co"># fazer gráficos interativos</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># fazer manipulação de banco de dados</span></span>
@@ -246,7 +244,7 @@ body {
 </div>
 <p>Vamos considerar uma adaptação do código apresentado pelo Júlio Trecenti em sua apresentação na <a href="https://estatistica.ufes.br/xiv-semana-de-estatistica-2021">XIV SEMANA DE ESTATÍSTICA</a>, para baixar os dados diretamente do site chancedegol. O vídeo de todas apresentações está disponível no seguinte <a href="https://www.youtube.com/watch?v=ugwxsgyNZYo">link</a>.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url_chancedegol <span class="ot">&lt;-</span> <span class="st">"https://www.chancedegol.com.br/br20.htm"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -272,7 +270,7 @@ body {
 </div>
 <p>Precisamos fazer algumas alterações no banco de dados para obter as colunas com os gols do time mandante e do time visitante</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
@@ -283,7 +281,7 @@ body {
 </div>
 <p>Precisaremos utilizar a variável “Data” em formato <code>Date</code>.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">as.Date</span>(data, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -291,7 +289,7 @@ body {
 </div>
 <p>Se quisermos obter a tabela de classificação de pontos, temos que obter a pontuação dos times mandantes e dos times visitantes, em seguida consolidar isso numa mesma tabela</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Definindo pontos de cada time</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
@@ -499,7 +497,7 @@ body {
 </div>
 <p>Para começar a nossa simulação, podemos obter uma tabela que nos ajudará a calcular a média de gols feitos e sofridos por cada time ao longo do campeonato. Podemos usar isso como uma métrica do nosso modelo para simular as partidas.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tabela_gols_mandante <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(data, mandante, gols_mandante, gols_visitante) <span class="sc">%&gt;%</span></span>
@@ -525,7 +523,7 @@ body {
 </div>
 <p>Por exemplo, se quiséssemos obter a média de gols de cada time até uma certa data, poderíamos fazer</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tabela_media_gols <span class="ot">&lt;-</span> tabela_gols <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(data <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2020-11-01"</span>)) <span class="sc">%&gt;%</span></span>
@@ -657,7 +655,7 @@ body {
 </div>
 <p>Como o número de gols feitos (ou sofridos) é uma variável discreta, podemos utilizar a distribuição Poisson para gerar seus valores aleatórios. Como modelo inicial, podemos usar a informação média de cada time para gerar um certo valor aleatório. Por exemplo, considerando que o Vasco, para essa data escolhida, tem média de gols igual a 1,19, então poderíamos simular o número de gols em uma partida do Vasco, fazendo simplesmente</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">1</span>, <span class="at">lambda =</span> <span class="fl">1.19</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -674,7 +672,7 @@ body {
 </div>
 <p>Porém, é melhor gerarmos esse valor dentro de uma função para podermos repetir esse processo um número grande de vezes. Considerando o modo vetorial do R para as funções geradoras de variáveis aleatórias, precisamos passar somente o vetor de médias para simular os gols para cada time de acordo com sua respectiva média. Para entender tal comportamento da função <code>rpois</code> rode o seguinte comando algumas vezes</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">3</span>, <span class="at">lambda =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -690,7 +688,7 @@ body {
 </div>
 <p>Então, podemos escrever nossa função como</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>simula_jogos <span class="ot">&lt;-</span> <span class="cf">function</span>(media_gols) {</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    n_jogos <span class="ot">&lt;-</span> <span class="fu">length</span>(media_gols)</span>
@@ -701,7 +699,7 @@ body {
 <p>Uma alteração bem simples poderia considerar outra distribuição de probabilidades para gerar esses gols marcados, como a distribuição Binomial Negativa. Além disso, poderíamos pensar em utilizar os gols sofridos também ao invés dos gols marcados.</p>
 <p>Agora, gostaríamos de simular esses gols em diferentes momentos do campeonato, para entender como podemos ter previsões bastante diferentes a depender de quem estava na frente e de quem tinha as melhores médias de gols. Para isso, vamos criar uma sequência de datas, considerando somente terças e sextas (para olhar os resultados sempre depois das rodadas de segunda e quinta), com a ajuda do pacote <code>lubridate</code>. Vamos pegar esses dias entre aproximadamente a rodada 10 e rodada 34 do campeonato.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_inicio <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">as_date</span>(<span class="st">"2020-09-12"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>data_fim <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">as_date</span>(<span class="st">"2021-02-04"</span>)</span>
@@ -712,7 +710,7 @@ body {
 </div>
 <p>Agora para cada uma dessas datas precisamos separar os dados entre o que foi observado até aquele momento e o que gostaríamos de simular. Em seguida, quando simularmos os gols dos jogos “no futuro”, precisaremos consolidar os resultados observados até aquela data e aqueles com os gols simulados. Podemos sempre juntar os dois vetores de gols e fazer o mesmo que fizemos anteriormente. Para facilitar essa simulação para diferentes datas, vamos fazer uma função que dependa da data (<code>data_simulacao</code>) e também do número de vezes que gostaríamos de repetir o processo (<code>repeticoes</code>).</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>simula_campeao_data <span class="ot">&lt;-</span> <span class="cf">function</span>(replicacoes, data_simulacao) {</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filtra dados reais.</span></span>
@@ -794,7 +792,7 @@ body {
 </div>
 <p>Agora, precisamos tomar cuidado com o número de repetições no nosso estudo de Monte Carlo. No meu computador, eu posso verificar o tempo de execução para 10000 repetições da simulação fazendo</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(campeoes <span class="ot">&lt;-</span> <span class="fu">simula_campeao_data</span>(</span>
@@ -824,7 +822,7 @@ body {
 <p>Note que essa simulação demora cerca de 4 minutos para essa data específica. Embora esse tempo possa variar, porque o número de valores a serem gerados de forma aleatória muda de acordo com a data de simulação, ainda assim devemos esperar por algum tempo para o estudo de Monte Carlo ficar pronto, quando estivermos rodando para várias datas.</p>
 <p>Podemos dar uma olhada no resultado dessa primeira data olhando a tabela de frequências para verificar qual time terminou em primeiro lugar na tabela mais vezes.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>janitor<span class="sc">::</span><span class="fu">tabyl</span>(campeoes) <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"pipe"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -931,7 +929,7 @@ body {
 <p>Notem que Vasco e Atlético-MG apresentaram a maior probabilidade de título, pois esses dois times detinham a melhor média de gols naquele momento. Além disso, percebam que por se tratar de uma simulação até mesmo o Botafogo, que terminou o campeonato em último, teria se sagrado campeão em pelo menos uma oportunidade.</p>
 <p>Em seguida, podemos rodar o nosso programa considerando as datas que selecionamos anteriormente. Tendo em vista o maior tempo de processamento, vamos utilizar a função <code>mclapply</code> do pacote <code>parallel</code> para acelerar o processo. É importante mencionar aqui que tal função só está disponível em sistemas operacionais baseados em Unix. Para Windows, eu deixo aqui um <a href="https://waterprogramming.wordpress.com/2020/03/16/parallel-processing-with-r-on-windows/">link</a> para quem quiser testar o pacote <code>doParallel</code>, que parece apresentar as mesmas funcionalidades.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Esse programa pode demorar bastante tempo para ficar pronto.</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Troque por lapply, se estiver rodando em Windows, sem o argumento mc.cores.</span></span>
@@ -942,7 +940,7 @@ body {
 </div>
 <p>Agora precisamos retirar a tabela dos campeões na simulação para todas as datas selecionadas, adicionando a informação da data à tabela.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tabelas_campeao <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(campeoes_por_data), <span class="cf">function</span>(a) {</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    tabela <span class="ot">&lt;-</span> janitor<span class="sc">::</span><span class="fu">tabyl</span>(campeoes_por_data[[a]])</span>
@@ -954,7 +952,7 @@ body {
 </div>
 <p>Podemos considerar fazer um gráfico interativo conforme <a href="https://daslab-ufes.github.io/highcharter/">post anterior</a> utilizando o pacote <code>highcharter</code>. Podemos filtrar para mostrar somente times tiveram em algum momento a probabilidade maior que 1% de ser campeão.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(tabelas_campeao, prob <span class="sc">&gt;</span> <span class="fl">0.01</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hchart</span>(</span>
@@ -981,7 +979,7 @@ body {
 <p>&nbsp;</p> -->
 <p>Podemos também considerar fazer uma animação tendo em vista o <a href="https://daslab-ufes.github.io/estatistica_animada/">post anterior sobre animações no R</a> para mostrar a variação ao longo do tempo. Considerando que dentro do meu diretório <code>escudos/</code> eu tenho todos os escudos dos times, organizados em ordem alfabética, eu posso usar isso na minha animação também.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>escudos_times <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">sort</span>(<span class="fu">unique</span>(dados<span class="sc">$</span>mandante)),</span>
@@ -1104,9 +1102,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1116,17 +1115,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1139,125 +1129,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1301,7 +1172,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1327,32 +1197,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1418,15 +1262,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">
-<p><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></p>
-</div>
+    <div class="nav-footer-center"><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
-
 
 
 

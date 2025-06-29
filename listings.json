@@ -2,6 +2,7 @@
   {
     "listing": "/tutoriais/index.html",
     "items": [
+      "/tutoriais/22_heatmap_tutorial/index.html",
       "/tutoriais/21_incrementando_seus graficos_com_ggplot2/index.html",
       "/tutoriais/20_como_construir_graficos_com_ggplot2/index.html",
       "/tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html",
@@ -26,6 +27,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/tutoriais/22_heatmap_tutorial/index.html",
       "/tutoriais/21_incrementando_seus graficos_com_ggplot2/index.html",
       "/tutoriais/20_como_construir_graficos_com_ggplot2/index.html",
       "/tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html",

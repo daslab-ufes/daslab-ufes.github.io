@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -80,7 +80,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "mais correspondência neste documento",
     "search-more-matches-text": "mais correspondências neste documento",
     "search-clear-button-title": "Limpar",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancelar",
     "search-submit-button-title": "Enviar",
     "search-label": "Procurar"
@@ -101,10 +100,10 @@ background-size: cover;
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../img/daslab-logo-removebg.png" alt="" class="navbar-logo">
     </a>
@@ -115,37 +114,37 @@ background-size: cover;
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../sobre/index.html"> 
-<span class="menu-text">Sobre</span></a>
+    <a class="nav-link" href="../../sobre/index.html" rel="" target="">
+ <span class="menu-text">Sobre</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../projetos/index.html"> 
-<span class="menu-text">Projetos</span></a>
+    <a class="nav-link" href="../../projetos/index.html" rel="" target="">
+ <span class="menu-text">Projetos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tutoriais/index.html"> 
-<span class="menu-text">Tutoriais</span></a>
+    <a class="nav-link" href="../../tutoriais/index.html" rel="" target="">
+ <span class="menu-text">Tutoriais</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../ensinar/index.html"> 
-<span class="menu-text">ensinaR</span></a>
+    <a class="nav-link" href="../../ensinar/index.html" rel="" target="">
+ <span class="menu-text">ensinaR</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../oobr/index.html"> 
-<span class="menu-text">OOBr</span></a>
+    <a class="nav-link" href="../../oobr/index.html" rel="" target="">
+ <span class="menu-text">OOBr</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../eventos/index.html"> 
-<span class="menu-text">Eventos</span></a>
+    <a class="nav-link" href="../../eventos/index.html" rel="" target="">
+ <span class="menu-text">Eventos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../contato/index.html"> 
-<span class="menu-text">Contato</span></a>
+    <a class="nav-link" href="../../contato/index.html" rel="" target="">
+ <span class="menu-text">Contato</span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -199,7 +198,6 @@ background-size: cover;
 
 
 
-
 <style>
 body {
     background: white;
@@ -212,7 +210,7 @@ body {
 <p>No Episódio 606 do Podcast <a href="https://open.spotify.com/show/0kof6vwnq6i1zlvbh9lwsY">RapaduraCast</a>, os participantes discutem e escolhem o melhor filme do Tom Hanks. Na conversa, eles opinam sobre os filmes que o Tom Hanks atua até chegarem em um consenso e elegerem o melhor filme. Mas a questão é: a escolha do Rapadura é a mesma que das avaliações do Internet Movie Database (IMDb)? Para responder a essa pergunta, vamos analisar os filmes que Tom Hanks participa como ator (em qualquer nível) com relação às informações do IMDb com o R.</p>
 <p>Primeiramente, vamos carregar os pacotes do R que utilizaremos.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)          <span class="co"># transformar dados</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)          <span class="co"># ler dados</span></span>
@@ -231,7 +229,7 @@ body {
 <p>Para acessar aos dados do IMDb, vamos seguir alguns passos que Athos recomenda no <a href="https://blog.curso-r.com/posts/2020-06-09-bechdel/">post</a>, ao obter uma API KEY no site <a href="http://www.omdbapi.com/">OMDB</a>.</p>
 <p>Coloquei a chave obtida no arquivo .Renviron, ao inserir: omdb_chave = minha chave. Dessa forma, só preciso chamar no código <code>Sys.getenv('omdb_chave')</code>.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readRenviron</span>(<span class="st">".Renviron"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.getenv</span>(<span class="st">'omdb_chave'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -239,7 +237,7 @@ body {
 </div>
 <p>No vetor abaixo estão as IMDb IDs dos filmes que queremos analisar.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#imdb ids dos filmes que Tom Hanks atua</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>filmes_ids <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'0080850'</span>, <span class="st">'0086927'</span>, <span class="st">'0088161'</span>, <span class="st">'0089543'</span>, <span class="st">'0090274'</span>, <span class="st">'0091019'</span>,</span>
@@ -256,7 +254,7 @@ body {
 </div>
 <p>Podemos observar que há <code>58</code> filmes. Também consideramos a função que o Athos apresenta para extrair as informações do ID como argumento.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#função para pegar as informações do filme identificado pelo argumento imdbid</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pega_info_imdb <span class="ot">&lt;-</span> <span class="cf">function</span>(imdbid) {</span>
@@ -268,7 +266,7 @@ body {
 </div>
 <p>Agora vamos aplicar a função aos ids dos filmes do Tom Hanks e arrumar a base de dados.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#aplicar a função 'pega_info_imdb' aos ids</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dados1 <span class="ot">&lt;-</span> <span class="fu">map</span>(filmes_ids, pega_info_imdb)</span>
@@ -437,7 +435,7 @@ body {
 </div>
 <p>Veja que todas as variáveis foram lidas como character. A seguir são arrumadas as variáveis quantitativas que vamos analisar: ‘imdbRating_num’ é a nota do filme, ‘ano’ é o ano do filme e ‘num_votos’ é o número de votos recebidos.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#arrumar as variáveis quntitativas que estão como texto</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> ai <span class="sc">%&gt;%</span> </span>
@@ -449,7 +447,7 @@ body {
 </div>
 <p>Vamos ver as variáveis contidas na base de dados:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -531,7 +529,7 @@ body {
 </table>
 </div>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -549,7 +547,7 @@ body {
 </div>
 <p>Note que há <code>166</code> observações na base. Isso acontece porque para 54 deles há avaliações da Metacritic e da Rotten Tomatoes, além do IMDb.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ratings[,<span class="dv">1</span>]) <span class="sc">%&gt;%</span> </span>
@@ -593,7 +591,7 @@ body {
 </div>
 <p>Vamos selecionar só as avaliações de IMDb:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#só avaliações do IMDb</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
@@ -602,7 +600,7 @@ body {
 </div>
 <p>Na coluna “Genre” consta os gêneros do filme em questão.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gênero do filme</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados_imdb<span class="sc">$</span>Genre)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -640,7 +638,7 @@ body {
 </div>
 <p>Como todos os gêneros estão na mesma coluna, precisamos usar um código para verificar se o gênero de interesse está contido na coluna. São os gêneros de interesse aqui: ação, aventura. criminal, drama, mistério, suspense, histórico, biográfico, fantasia, comédia, animação, sci-fi, romance e musical.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#identificar os gêneros de interesse</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="ot">&lt;-</span> dados_imdb <span class="sc">%&gt;%</span> </span>
@@ -705,7 +703,7 @@ body {
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#frequência dos gêneros dos filmes</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span></span>
@@ -782,7 +780,7 @@ body {
 <p>Dentre os gêneros considerados, aquele que o Tom Hanks mais atuou foi em drama, seguido de perto por comédia.</p>
 <p>A variável “Awards” indica os prêmios e/ou indicações dos filmes.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#prêmios e indicações do filme</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">freq</span>(dados_imdb<span class="sc">$</span>Awards)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -874,7 +872,7 @@ body {
 </div>
 <p>Vamos então criar a variável de premiação, com as categorias: nenhum, oscar, BAFTA/Golden Globe, nomeado ao Oscar/BAFTA/Golden Globe, outros prêmios e nomeado a outros prêmios.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#criando a variável de premiação</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="ot">&lt;-</span> dados_imdb <span class="sc">%&gt;%</span></span>
@@ -946,7 +944,7 @@ body {
 </div>
 <p>Veja que as categorias são ordenadas por ordem alfabética. Vamos reordenar as categorias: oscar, outros prêmios, nomeado ao Oscar/BAFTA/Golden Globe, nomeado a outros prêmios, nenhum.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#arrumar a ordem das categorias usando a função lvls_reorder do forcats</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="ot">&lt;-</span> dados_imdb <span class="sc">%&gt;%</span>  </span>
@@ -1010,7 +1008,7 @@ body {
 </div>
 <p>Uma curiosidade seria ver quais os filmes ganharam o Oscar.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#identificar os filmes vencedores do Oscar</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span> <span class="fu">filter</span>(premiacao <span class="sc">==</span> <span class="st">"oscar"</span>) <span class="sc">%&gt;%</span> </span>
@@ -1089,7 +1087,7 @@ body {
 <p>O filme “Estrada para Perdição” (Road to Perdition) ganhou o oscar de melhor fotografia. “Toy Story 3” ganhou o oscar de melhor filme de animação e melhor canção original e o “Toy Story 4” ganhou o oscar de melhor animação. O filme “Ponte dos Espiões” (Bridge of Spies), de 2015, levou o oscar de melhor ator coadjuvante.</p>
 <p>Agora chegou a hora de ver as medidas descritivas das notas dos filmes.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># descritivas das notas</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span></span>
@@ -1126,7 +1124,7 @@ body {
 <p>Podemos observar que a nota média é de 6.87 e que o filme com maior avaliação teve nota 8.8 e o filme com a menor obteve 5.1. Mais adiante vamos identificar esses filmes.</p>
 <p>Há uma variável de duração do filme (“Runtime”).</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados_imdb<span class="sc">$</span>Runtime)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1148,7 +1146,7 @@ body {
 </div>
 <p>Note que há texto no campo da variável. Vamos usar a função <code>extract_numeric</code> do pacote <code>tidyr</code> para retornar apenas o número:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criando a variável de duração do filme</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="ot">&lt;-</span> dados_imdb <span class="sc">%&gt;%</span> </span>
@@ -1173,7 +1171,7 @@ body {
 </table>
 </div>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># descritivas da duracao</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span></span>
@@ -1209,7 +1207,7 @@ body {
 </div>
 <p>Vamos considerar um filme longo se este tem mais de 2 horas e vamos criar a variável indicadora de filme longo:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="ot">&lt;-</span> dados_imdb <span class="sc">%&gt;%</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">mutate</span>(<span class="at">duracao_mais_2h =</span> <span class="fu">ifelse</span>(duracao <span class="sc">&gt;=</span> <span class="dv">120</span>, </span>
@@ -1219,7 +1217,7 @@ body {
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#tabela de frequência para duracao_mais_2h</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">freq</span>(dados_imdb<span class="sc">$</span>duracao_mais_2h, <span class="at">total =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1260,7 +1258,7 @@ body {
 <p>Aproximadamente 33% dos filmes tem pelo menos 2 horas de duração.</p>
 <p>Agora vamos ver a distribuição dos filmes por ano e também ver em quantos filmes ele atuou em média:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(ano) <span class="sc">%&gt;%</span> </span>
@@ -1287,7 +1285,7 @@ body {
 </table>
 </div>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(ano) <span class="sc">%&gt;%</span> </span>
@@ -1306,7 +1304,7 @@ body {
 <p>Em média, Tom Hanks atua em 1.87 filmes por ano. Pelo gráfico acima, o ano de 2004 foi o ano que mais saiu filme com atuação do Hanks (4 filmes). Além disso, nos anos de 81, 82, 83, 91, 97, 2001, 2003, 2005, 2014 e 2018 não foram lançados filmes do ator.</p>
 <p>Ao considerar a variável de maior interesse desse post, a nota do IMDb do filme, vamos fazer um gráfico de dispersão dessa variável com o número de votos, com as cores dos pontos identificando a premiação recebida pelo filme. Faremos esse gráfico interativo por meio do pacote <a href="https://plotly.com/r/">Plotly</a> para que o leitor consiga identificar o filme que cada ponto representa e também fazer zoom in e zoom out se assim desejar.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">16</span>,</span>
@@ -1345,7 +1343,7 @@ body {
 <p>&nbsp;</p> -->
 <p>Nesse momento vamos responder à pergunta que motivou esse post: dentre os filmes que Tom Hanks atua, qual apresenta a maior nota no IMDb?</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filme com maior nota no IMDb</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span></span>
@@ -1380,7 +1378,7 @@ body {
 <p>Pela saída acima e o gráfico anterior, descobrimos que é “Forrest Gump”.</p>
 <p>E o filme com a menor nota:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filme com menor nota no IMDb</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span></span>
@@ -1422,7 +1420,7 @@ body {
 </div>
 <p>O filme com a menor nota é “Trilha dos Corpos”” (He Knows You’re Alone) de 1980, o primeiro trabalho de Tom Hanks no cinema. Já o filme com maior número de votantes é:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filme com maior número de votos no IMDb</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span></span>
@@ -1467,7 +1465,7 @@ body {
 </div>
 <p>E o número com o menor número de votos é:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filme com menor número de votos no IMDb</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>dados_imdb <span class="sc">%&gt;%</span></span>
@@ -1597,9 +1595,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1609,17 +1608,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1632,125 +1622,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1794,7 +1665,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1820,32 +1690,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1911,15 +1755,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">
-<p><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></p>
-</div>
+    <div class="nav-footer-center"><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
-
 
 
 

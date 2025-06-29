@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -80,7 +80,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "mais correspondência neste documento",
     "search-more-matches-text": "mais correspondências neste documento",
     "search-clear-button-title": "Limpar",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancelar",
     "search-submit-button-title": "Enviar",
     "search-label": "Procurar"
@@ -101,10 +100,10 @@ background-size: cover;
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../img/daslab-logo-removebg.png" alt="" class="navbar-logo">
     </a>
@@ -115,37 +114,37 @@ background-size: cover;
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../sobre/index.html"> 
-<span class="menu-text">Sobre</span></a>
+    <a class="nav-link" href="../../sobre/index.html" rel="" target="">
+ <span class="menu-text">Sobre</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../projetos/index.html"> 
-<span class="menu-text">Projetos</span></a>
+    <a class="nav-link" href="../../projetos/index.html" rel="" target="">
+ <span class="menu-text">Projetos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tutoriais/index.html"> 
-<span class="menu-text">Tutoriais</span></a>
+    <a class="nav-link" href="../../tutoriais/index.html" rel="" target="">
+ <span class="menu-text">Tutoriais</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../ensinar/index.html"> 
-<span class="menu-text">ensinaR</span></a>
+    <a class="nav-link" href="../../ensinar/index.html" rel="" target="">
+ <span class="menu-text">ensinaR</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../oobr/index.html"> 
-<span class="menu-text">OOBr</span></a>
+    <a class="nav-link" href="../../oobr/index.html" rel="" target="">
+ <span class="menu-text">OOBr</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../eventos/index.html"> 
-<span class="menu-text">Eventos</span></a>
+    <a class="nav-link" href="../../eventos/index.html" rel="" target="">
+ <span class="menu-text">Eventos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../contato/index.html"> 
-<span class="menu-text">Contato</span></a>
+    <a class="nav-link" href="../../contato/index.html" rel="" target="">
+ <span class="menu-text">Contato</span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -199,7 +198,6 @@ background-size: cover;
 
 
 
-
 <style>
 body {
     background: white;
@@ -212,7 +210,7 @@ body {
 <p>Na maioria dos trabalhos e análises que vamos fazer aqui no R, sempre precisamos de pacotes que nos auxiliem, seja um que facilite o tratamento de dados ou um que apenas deixa a estétíca de um gráfico um pouquinho mais legal. De qualquer forma, sempre precisamos carregar pacotes para o nosso projeto. Nesse post vamos falar um pouco sobre um dos pacotes mais utilizados no R, o <code>tidyverse</code>. O <code>tidyverse</code> é uma coleção de outros pacotes que são utilizados para manipulação, exploração e visualização de dados e que compartilham uma filosofia de design bem parecida, por isso de forma combinada permitem que você consiga fazer inúmeros trabalhos. Os pacotes que fazem parte desse universo são: <code>dplyr</code>, <code>tidyr</code>, <code>ggplot2</code>, <code>forcats</code>, <code>purrr</code>, <code>stringr</code>, <code>tibble</code> e <code>readr</code>. Para descrever melhor como funciona o <code>tidyverse</code>, vamos falar sobre cada pacote presente nele de uma forma bem resumida, mostrando suas principais funções e exemplos de como utilizar. Mais para frente criaremos também posts para falar desses pacotes de uma forma mais aprofundada.</p>
 <p>Para mostrar a utilização do <code>tidyverse</code> iremos realizar um tratamento na base de dados do censo demográfico brasileiro, em que o último foi realizado em 2010. Iremos também usar uma base de dados que contém informações da população estimada em cada município do Brasil em 2020. Com a utilização de algumas funções do pacote será possível juntar os dois bancos de dados e realizar uma comparação da população.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># carregando o tidiverse</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -234,9 +232,9 @@ body {
 </ul></li>
 <li><code>read_log()</code>: arquivos de log da web</li>
 </ul>
-<p>Para as análises, estou importando os dados com a função <code>read_excel</code> do pacote <code>readxl</code>. Para reprodução do post, os arquivos podem ser obtidos <a href="../..\assets/images/post_tidyverse/censo.xlsx">aqui</a> e <a href="../..\assets/images/post_tidyverse/estimado.xlsx">aqui</a>.</p>
+<p>Para as análises, estou importando os dados com a função <code>read_excel</code> do pacote <code>readxl</code>. Para reprodução do post, os arquivos podem ser obtidos <a href="../../assets/images/post_tidyverse/censo.xlsx">aqui</a> e <a href="../../assets/images/post_tidyverse/estimado.xlsx">aqui</a>.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>censo <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"censo.xlsx"</span>)</span>
@@ -266,7 +264,7 @@ body {
 </ul>
 <p>Voltando para as análises. Primeramente vamos arrumar a base de dados do censo, usaremos a função <code>clean_names</code> do pacote <code>janitor</code> (não pertencente ao tidyverse) para limpar e padronizar os nomes das variáveis, depois aplicaremos um filtro para pegar apenas os dados de 2010. Iremos renomear a varíavel <code>uf</code> para <code>uf_code</code> para facilitar um pouco nosso entendimento. Note que já estamos usando algumas das funções mencionadas.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>censo <span class="ot">&lt;-</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>(censo)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>censo <span class="ot">&lt;-</span> censo <span class="sc">%&gt;%</span></span>
@@ -288,7 +286,7 @@ body {
 </ul>
 <p>Agora iremos criar uma nova variável com a função <code>mutate</code> que irá receber os nomes dos municípios, porém todos em letras minúsculas com o auxilio da função <code>tolower</code>. Em seguida, criaremos mais uma variável que vai pegar os códigos dos municípios presentes na vaiável <code>uf_code</code> e recodificá-los utilizando a função <code>fct_recode</code> do <code>forcats</code> para o estado a qual se refere. Os códigos dos municípios foram obtidos no site do IBGE.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>censo <span class="ot">&lt;-</span> censo <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">municipio_1 =</span> <span class="fu">tolower</span>(municipio))</span>
@@ -345,7 +343,7 @@ body {
 <p>Para aprofundar melhor no uso dessas funções, iremos deixar o <a href="https://github.com/rstudio/cheatsheets/blob/master/strings.pdf">link</a> do <em>cheat sheet</em> (folha de dicas) do <code>stringr</code>.</p>
 <p>Agora que já entendemos um pouco o funcionamento do <code>stringr</code>, podemos usar suas funções para auxiliar nossa análise. A variável <code>municipio</code> desse banco de dados vem no formato “nome do município (uf)” logo, é necessário utilizar uma função que “entra” em cada observação dessa variável e pegue apenas o “UF” (estado). Depois disso criaremos outra variável que irá remover o “UF” e fique apenas o nome do município. Utilizamos a função <code>str_match</code> e <code>str_sub</code>, respectivamente.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>estimado <span class="ot">&lt;-</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>(estimado)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>estimado <span class="ot">&lt;-</span> estimado <span class="sc">%&gt;%</span></span>
@@ -357,14 +355,14 @@ body {
 </div>
 <p>Agora que tratamos as variáveis desejadas das duas tabelas, é interessante juntá-las em apenas uma base de dados. Vamos fazer isso usando uma função presente no pacote <code>dplyr</code>.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">left_join</span>(estimado, censo, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"municipio_1"</span>, <span class="st">"uf"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Algumas observações devem ser feitas. Os bancos de dados possuem quantidades diferentes de observações.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(censo) <span class="co"># quantidade de observações do banco de dados do censo</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -380,7 +378,7 @@ body {
 </table>
 </div>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(estimado) <span class="co"># # quantidade de observações do banco de dados estimado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -414,7 +412,7 @@ body {
 </ul>
 <p>Você pode aprender mais sobre essas funções <a href="https://uc-r.github.io/tidyr">neste link</a>. O <code>tidyr</code> também possui diversas outras funções que você pode olhar acessando o <a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf">cheatsheets</a>. Nesta análise iremos utilizar a função <code>drop_na</code> (retirar linhas contendo valores ausentes) do pacote para remover as variáveis com valores vazios e selecionar apenas as que iremos utilizar.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(dados)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
@@ -428,7 +426,7 @@ body {
 <h1><em>ggplot2</em></h1>
 <p>O ggplot é um pacote extremamente utilizado no R que tem como finalidade criar gráficos de diversos tipos. Basicamente você fornece o conjunto de dados, diz qual tipo de gráficos utilizar e mostra como mapear as variáveis para a estética do gráfico. O <code>ggplot2</code> trabalha com “camadas” onde, após você atribuir algo ao gráfico, você utiliza o <code>+</code> e acrescenta uma nova camada. Para explicar isso de uma forma mais clara, vamos a um exemplo. Começaremos com <code>ggplot()</code> e nele vamos inserir o conjunto de dados, depois a camada fornecendo o tipo de gráfico com os atributos estéticos, por exemplo, <code>geom_bar(aes())</code>. Com esses comandos já é possível exibir um gráfico, mas podemos colocar inúmeras camadas.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># um exemplo extramente simples que mostra a quantidade de municípios em cada estado.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados) <span class="sc">+</span></span>
@@ -439,7 +437,7 @@ body {
 <img src="unnamed-chunk-9-1.png" class="img-fluid"><!-- -->
 </center>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># podemos aprimorar esse mesmo gráfico</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> uf)) <span class="sc">+</span></span>
@@ -459,14 +457,14 @@ body {
 <p>Note que coloquei as informações estéticas com a função <code>aes</code> em lugares diferentes aqui nesse exemplo e o resultado seria exatamente o mesmo, porém isso nem sempre é verdade. Em um post somente sobre <code>ggplot2</code> iremos discutir isso com mais detalhes.</p>
 <p>Vamos então aos gráficos de comparação. Para isso, precisaremos plotar duas variavéis no eixo x, população e população estimada, então precisaremos fazer uma breve manipulação nos dados. Neste caso, vamos usar a função <code>melt</code> do pacote <code>reshape2</code> que irá basicamente juntar em apenas uma variável: a população e a população estimada.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dados_1 <span class="ot">&lt;-</span> <span class="fu">melt</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados_1, <span class="fu">aes</span>(uf, value, <span class="at">fill =</span> variable)) <span class="sc">+</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
@@ -490,7 +488,7 @@ body {
 <h1><em>tibble</em></h1>
 <p>Um <code>tibble</code> se descreve como uma repaginação moderna dos dados. Basicamente um tibble é um tipo de <code>data.frame</code> com caracteríscas diferentes, pois não mudam os nomes ou tipos de variáveis e não fazem correspondência parcial. Isso força você a enfrentar os problemas mais cedos. Vamos então a um exemplo de uso.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>notas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"André"</span> <span class="ot">=</span> <span class="dv">6</span>, <span class="st">"Larissa"</span> <span class="ot">=</span> <span class="dv">9</span>, <span class="st">"Mariana"</span> <span class="ot">=</span> <span class="dv">8</span>, <span class="st">"Tobias"</span> <span class="ot">=</span> <span class="dv">3</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>notas <span class="ot">&lt;-</span> notas <span class="sc">%&gt;%</span></span>
@@ -545,7 +543,7 @@ body {
 <h1><em>purrr</em></h1>
 <p>O pacote <code>purr</code> veio para aprimorar as ferramentas de programação funcional. Ele nos fornece um conjunto de ferramentas para trabalharmos com vetores e funções. Você pode conferir o cheat sheet <a href="https://github.com/rstudio/cheatsheets/blob/master/purrr.pdf">clicando aqui</a>. Umas das funções mais importantes do pacote é a <code>map</code>. <code>map</code> é uma abstração de laços, permitindo que façamos iterações nos elementos de uma lista e não em alguma variável auxiliar. Em outras palavras ele aplica uma função em todo elemento de uma lista. Suponha que a gente queira calcular a diferença média entre população estimada e a população real. Uma ideia legal para evitar possíveis <code>if´s</code> e <code>for´s</code> seria a utilização do map. Vamos criar um vetor com os Estados de nosso interesse e uma função que ira calcular essa diferença. Então, a função <code>map</code> vai simplismente aplicar a função de interesse (definida no argumento) em cada elemento do nosso vetor.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lista_estados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ES"</span>, <span class="st">"SP"</span>, <span class="st">"RJ"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -687,9 +685,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -699,17 +698,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -722,125 +712,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -884,7 +755,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -910,32 +780,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1001,15 +845,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">
-<p><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></p>
-</div>
+    <div class="nav-footer-center"><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
-
 
 
 
