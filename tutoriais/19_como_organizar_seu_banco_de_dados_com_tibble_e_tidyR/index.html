@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -80,7 +80,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "mais correspondência neste documento",
     "search-more-matches-text": "mais correspondências neste documento",
     "search-clear-button-title": "Limpar",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancelar",
     "search-submit-button-title": "Enviar",
     "search-label": "Procurar"
@@ -101,10 +100,10 @@ background-size: cover;
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../img/daslab-logo-removebg.png" alt="" class="navbar-logo">
     </a>
@@ -115,37 +114,37 @@ background-size: cover;
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../sobre/index.html"> 
-<span class="menu-text">Sobre</span></a>
+    <a class="nav-link" href="../../sobre/index.html" rel="" target="">
+ <span class="menu-text">Sobre</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../projetos/index.html"> 
-<span class="menu-text">Projetos</span></a>
+    <a class="nav-link" href="../../projetos/index.html" rel="" target="">
+ <span class="menu-text">Projetos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tutoriais/index.html"> 
-<span class="menu-text">Tutoriais</span></a>
+    <a class="nav-link" href="../../tutoriais/index.html" rel="" target="">
+ <span class="menu-text">Tutoriais</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../ensinar/index.html"> 
-<span class="menu-text">ensinaR</span></a>
+    <a class="nav-link" href="../../ensinar/index.html" rel="" target="">
+ <span class="menu-text">ensinaR</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../oobr/index.html"> 
-<span class="menu-text">OOBr</span></a>
+    <a class="nav-link" href="../../oobr/index.html" rel="" target="">
+ <span class="menu-text">OOBr</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../eventos/index.html"> 
-<span class="menu-text">Eventos</span></a>
+    <a class="nav-link" href="../../eventos/index.html" rel="" target="">
+ <span class="menu-text">Eventos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../contato/index.html"> 
-<span class="menu-text">Contato</span></a>
+    <a class="nav-link" href="../../contato/index.html" rel="" target="">
+ <span class="menu-text">Contato</span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -197,7 +196,6 @@ background-size: cover;
 
 
 
-
 <style>
 body {
     background: white;
@@ -213,13 +211,13 @@ body {
 <h3 class="anchored" data-anchor-id="como-criar-um-tibble">Como criar um <code>tibble</code>?</h3>
 <p>Para criar um <code>tibble</code>, podemos usar a função <code>as_tibble()</code>. Esta função transforma um <code>data.frame</code> normal em um <code>tibble</code> e faz parte do pacote <code>tibble</code>. Visto que na maioria das vezes temos conjuntos de dados armazenados como <code>data.frame</code>, esta função será útil para transformar eles em um <code>tibble</code>. Vejamos o exemplo abaixo:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble) <span class="do">## Carregando o pacote tibble</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars) <span class="do">## Visualizando o início do mtcars</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -346,7 +344,7 @@ body {
 </div>
 <p>Temos o conjunto de dados <code>cars</code> disponível quando carregamos o R, que está na forma de um <code>data.frame</code>. Usamos a função <code>as_tibble()</code> para transformar este <code>data.frame</code> em um <code>tibble</code> e imprimi-lo. Vamos ver a saída deste código conforme mostrado abaixo:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(mtcars)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -548,7 +546,7 @@ body {
 <p>Uma outra característica interessante é que <code>tibbles</code> sempre imprimem as primeiras dez linhas com o número de colunas que cabem em seu console. Este recurso funciona muito bem quando você está lidando com um grande conjunto de dados.</p>
 <p>Também podemos criar um <code>tibble</code> do zero, ou seja, nem sempre precisamos de um data.frame já criado para gerar um <code>tibble</code>. Podemos usar a função <code>tibble()</code>.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tibble1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
@@ -615,7 +613,7 @@ body {
 <p>Aqui neste exemplo, criamos um objeto do tipo <code>tibble</code> chamado <code>tibble1</code> usando a função <code>tibble()</code>. Repare que a entrada para a variável <em>a</em> é uma sequência de comprimento igual a cinco, enquanto a variável <em>b</em> possui comprimento um. Nos <code>tibble</code>s, assim como na criação de <code>data.frame</code>s, qualquer entrada de comprimento menor (<code>b</code>) do que a entrada de maior comprimento (<code>a</code>) pode ter seus valores reciclados. Observe que apenas a variável <code>b</code> com comprimento um é reciclada.</p>
 <p>Um outro aspecto interessante dos <code>tibble</code>s é que no R não poderíamos ter nomes de variáveis que contenham caracteres especiais, começando com números, contendo espaços e símbolos. No entanto, utilizando um <code>tibble</code>s temos a liberdade de usar esses nomes de variáveis, apenas precisamos incluir dentro de crases <strong>`</strong>. Veja um exemplo abaixo:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tibble2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">1*vetor</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">1000</span>,</span>
@@ -655,7 +653,7 @@ body {
 <h3 class="anchored" data-anchor-id="tribble"><code>Tribble</code></h3>
 <p>Também podemos usar a função <code>tribble()</code> para criar um <code>tibble</code>. Nesta função os nomes das variáveis podem ser adicionados verticalmente (como colunas no Excel) usando o sinal (‘~’) e abaixo de cada nome de variável, podemos adicionar os valores associados a cada uma delas.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tibble3 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>f, <span class="sc">~</span>g, <span class="sc">~</span>h,</span>
@@ -709,7 +707,7 @@ body {
 <p>Para entendermos bem como os dados <em>tidy</em> funcionam, vamos explorar o pacote <code>tidyr</code>. Este pacote possui muitas funções importantíssimas para a organização dos nossos dados, porém vamos mostrar exemplos com algumas funções mais utilizadas, que são: <code>pivot_longer()</code>, <code>pivot_wider()</code>, <code>separate()</code> e <code>unite()</code>.</p>
 <p>Vamos começar criando um conjunto de dados simples e desorganizado. Estes dados vão conter as cidades mais populosas do Espírito Santo e a quantidade da população.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dados_cidades <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>UF, <span class="sc">~</span>Serra, <span class="sc">~</span>VilaVelha, <span class="sc">~</span>Cariacica, <span class="sc">~</span>Vitoria, <span class="sc">~</span>CachoeirodeItapemerim, <span class="sc">~</span>Linhares,</span>
@@ -772,13 +770,13 @@ body {
 <p>Note que os dados estão bem desorganizados, há várias observações no lugar de váriaveis. Para resolver isso vamos começar usando a função <code>pivot_longer()</code>. Ela vai organizar as colunas das cidades em apenas uma coluna.</p>
 <p>Vamos precisar carregar os seguintes pacotes:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr) <span class="do">## Carregando o pacote tidyr</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="do">## carregando o pacote dplyr</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -789,7 +787,7 @@ body {
 <h3 class="anchored" data-anchor-id="pivot_longer"><code>pivot_longer()</code></h3>
 <p>A função <code>pivot_longer()</code> torna os dados que estão no formato <em>wide</em> (formato do objeto “dados_cidades) em dados do tipo <em>long</em>.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dados_longer <span class="ot">&lt;-</span> dados_cidades <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
@@ -866,7 +864,7 @@ body {
 <h3 class="anchored" data-anchor-id="pivot_wider"><code>pivot_wider()</code></h3>
 <p>A função <code>pivot_longer()</code> deixou nossos dados no formato <em>long</em>, mas podemos usar <code>pivot_wider()</code> para retornar ao formato em que foi criado. Ela recebe argumentos parecidos com a função anterior.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dados_wider <span class="ot">&lt;-</span> dados_longer <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"Cidades"</span>, <span class="at">values_from =</span> <span class="st">"População"</span>)</span>
@@ -931,7 +929,7 @@ body {
 <h3 class="anchored" data-anchor-id="separate"><code>separate()</code></h3>
 <p><code>separate()</code> tem como objetivo separar uma coluna em várias outras colunas. Para este exemplo vamos criar um <code>tibble</code> com poucas observações:</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nome =</span> <span class="fu">c</span>(<span class="st">"João"</span>, <span class="st">"Pedro"</span>, <span class="st">"Amanda"</span>, <span class="st">"Fabiano"</span>, <span class="st">"Maria"</span>, <span class="st">"Gustavo"</span>),</span>
@@ -1037,7 +1035,7 @@ body {
 </div>
 <p>A variável <code>Nascimento</code> contem observações separadas por um simbolo (<strong>-</strong>), queremos dividir cada informação em três e criar uma coluna para cada. Podemos dividir a data de nascimento em <code>Dia</code>, <code>Mês</code> e <code>Ano</code>.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dados_separate <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(Nascimento, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Dia"</span>, <span class="st">"Mes"</span>, <span class="st">"Ano"</span>), <span class="at">sep =</span> <span class="st">"-"</span>)</span>
@@ -1171,7 +1169,7 @@ body {
 <h3 class="anchored" data-anchor-id="unite"><code>unite()</code></h3>
 <p>O oposto da função <code>separate()</code>, é a função <code>unite()</code>. Ela junta várias colunas em uma. Para exemplificar, vamos retornar nossos dados como estavam antes, vamos juntar as colunas <code>Dia</code>, <code>Mês</code> e <code>Ano</code> em apenas uma.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dados_unite <span class="ot">&lt;-</span> dados_separate <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(Nascimento, Dia, Mes, Ano, <span class="at">sep =</span> <span class="st">"/"</span>)</span>
@@ -1271,7 +1269,7 @@ body {
 </div>
 <p>Quando unimos as datas de nascimento, percebemos que no nascimento do <code>Pedro</code> ficou <em>NA/NA/NA</em>, para resolver isso precisamos substituir por apenas um <em>NA</em>. Para modificar vamos utilizar a função <code>mutate()</code> do <code>dplyr</code> e uma estrutura condicional <strong>ifelse</strong>.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dados_unite <span class="ot">&lt;-</span> dados_separate <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(Nascimento, Dia, Mes, Ano, <span class="at">sep =</span> <span class="st">"/"</span>) <span class="sc">%&gt;%</span></span>
@@ -1379,7 +1377,7 @@ body {
 <h3 class="anchored" data-anchor-id="drop_na"><code>drop_na()</code></h3>
 <p>Esta função é muito útil quando se está utilizando uma base de dados com muitos dados faltantes. <code>drop_na()</code> irá excluir todas as linhas que contêm dados faltantes. Nos argumentos desta função, colocamos apenas as colunas que contêm dados faltantes. Vamos utilizar a mesma tabela de dados de antes, <code>dados</code>, para este exemplo.</p>
 <div class="cell">
-<details open="" class="code-fold">
+<details open="">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(Nascimento, Peso, Fumante)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1538,9 +1536,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1550,17 +1549,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1573,125 +1563,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1735,7 +1606,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1761,32 +1631,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1852,15 +1696,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">
-<p><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></p>
-</div>
+    <div class="nav-footer-center"><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
-
 
 
 
