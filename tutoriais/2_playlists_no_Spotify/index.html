@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -35,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -67,10 +67,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d28d2f3f2f8d76b0baff2f08097e5fbd.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b97153e1831a0b2bef32c7a7d6cbed29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "Nenhum resultado",
@@ -80,6 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "mais correspondência neste documento",
     "search-more-matches-text": "mais correspondências neste documento",
     "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancelar",
     "search-submit-button-title": "Enviar",
     "search-label": "Procurar"
@@ -93,8 +94,35 @@ background-size: cover;
       }
 </style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -102,51 +130,51 @@ background-size: cover;
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../img/daslab-logo-removebg.png" alt="" class="navbar-logo">
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../sobre/index.html" rel="" target="">
- <span class="menu-text">Sobre</span></a>
+    <a class="nav-link" href="../../sobre/index.html"> 
+<span class="menu-text">Sobre</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../projetos/index.html" rel="" target="">
- <span class="menu-text">Projetos</span></a>
+    <a class="nav-link" href="../../projetos/index.html"> 
+<span class="menu-text">Projetos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tutoriais/index.html" rel="" target="">
- <span class="menu-text">Tutoriais</span></a>
+    <a class="nav-link" href="../../tutoriais/index.html"> 
+<span class="menu-text">Tutoriais</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../ensinar/index.html" rel="" target="">
- <span class="menu-text">ensinaR</span></a>
+    <a class="nav-link" href="../../ensinar/index.html"> 
+<span class="menu-text">ensinaR</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../oobr/index.html" rel="" target="">
- <span class="menu-text">OOBr</span></a>
+    <a class="nav-link" href="../../oobr/index.html"> 
+<span class="menu-text">OOBr</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../eventos/index.html" rel="" target="">
- <span class="menu-text">Eventos</span></a>
+    <a class="nav-link" href="../../eventos/index.html"> 
+<span class="menu-text">Eventos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../contato/index.html" rel="" target="">
- <span class="menu-text">Contato</span></a>
+    <a class="nav-link" href="../../contato/index.html"> 
+<span class="menu-text">Contato</span></a>
   </li>  
 </ul>
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -203,6 +231,7 @@ background-size: cover;
 
 
 
+
 <style>
 body {
     background: white;
@@ -220,7 +249,7 @@ body {
 <p>Considerando então essa informação de valência de uma amostra de músicas, vamos construir um modelo estatístico para tentar identificar características (ou covariáveis) que ajudem a explicar essa <em>positividade</em> (<strong>variável resposta</strong>) nas músicas para então construir uma nova <em>playlist</em>.</p>
 <p>Vamos considerar os seguintes pacotes para essa análise.</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rspotify)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -233,7 +262,7 @@ body {
 <p>Embora a API do Spotify não explique exatamente como funciona o algoritmo para definir a <em>valência</em> de cada música, entendemos que tal algoritmo deva utilizar de alguma maneiras as letras das músicas consideradas. Sendo assim e supondo que esse treinamento talvez esteja mais calibrado para músicas em inglês, vamos nos limitar a músicas de língua inglesa, inicialmente. A quem tiver interesse, fica aqui a sugestão de reprodução desse exercício para músicas brasileiras, por exemplo.</p>
 <p>Para estimarmos nosso modelo vamos considerar somente uma amostra de músicas. Com o intuito de utilizarmos músicas mais recentes e que tenham maior alcance, utilizaremos as 100 músicas da lista da <a href="https://www.billboard.com/charts/hot-100">“<em>Billboard Hot 100</em>”</a>, que é um importante referencial no mundo da música. Nossos dados consideram as musicas dessa lista obtidas no dia 05/06/2020.</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>top_songs_billboard <span class="ot">&lt;-</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    Rspotify<span class="sc">::</span><span class="fu">getPlaylistSongs</span>(</span>
@@ -246,7 +275,7 @@ body {
 </div>
 <p>Em seguida, obtemos as variáveis referentes a cada uma das músicas:</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>variaveis_musicas <span class="ot">&lt;-</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(top_songs_billboard<span class="sc">$</span>id, getFeatures, <span class="at">token =</span> keys)</span>
@@ -257,7 +286,7 @@ body {
 </div>
 <p>Para facilitar a leitura e discussão dos resultados, vamos renomear as variáveis</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>todas_musicas <span class="ot">&lt;-</span> todas_musicas <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(</span>
@@ -275,7 +304,7 @@ body {
 </div>
 <p>Em seguida, vejamos a distribuição de valores da nossa variável resposta a partir do seu histograma, assim como uma estimativa da densidade dessa distribuição.</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Considerando distribuição da variável valence</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(todas_musicas) <span class="sc">+</span></span>
@@ -291,7 +320,7 @@ body {
 </center>
 <p>Tendo em vista a dificuldade de se modelar a variabilidade dessa variável resposta, embora existam opções como a regressão beta, i.e., quando assumimos que a variável resposta tem distribuição beta, vamos considerar uma simplificação do problema. Em vez de modelar essa variável em sua escala contínua, iremos considerar uma categorização dessa variável, em que criamos uma variável dicotômica, em que separamos as observações entre aquelas com valor maior ou menor que 0,5, valor que está bastante próximo da mediana dos dados.</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(todas_musicas<span class="sc">$</span>valencia, <span class="fl">0.5</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -302,7 +331,9 @@ body {
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">valencia_cat =</span> <span class="fu">cut</span>(valencia, <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Tendo uma variável dicotômica, podemos pensar em estimar um modelo para uma variável resposta com distribuição Bernoulli. Aproveitando a discussão aqui da Prof.&nbsp;Agatha, em um <a href="https://daslab-ufes.github.io/interpretability-in-predictive-model/">post</a> anterior a esse, temos o interesse em construir um modelo preditivo - supondo a construção de uma <em>playlist</em> ao fim dessa análise, porém vamos nos ater a um modelo explicável. Essa escolha é simplesmente por simplificação do problema, embora em uma oportunidade futura podemos rever essa escolha. Temos então para a variável resposta <span class="math inline">\(Y = 1\)</span>, se a música é mais positiva (valência &gt; 0,5), e <span class="math inline">\(Y = 0\)</span>, caso contrário.</p>
+<p>Tendo uma variável dicotômica, podemos pensar em estimar um modelo para uma variável resposta com distribuição Bernoulli. Aproveitando a discussão aqui da Prof.&nbsp;Agatha, em um <a href="https://daslab-ufes.github.io/interpretability-in-predictive-model/">post</a> anterior a esse, temos o interesse em construir um modelo preditivo - supondo a construção de uma <em>playlist</em> ao fim dessa análise, porém vamos nos ater a um modelo explicável. Essa escolha é simplesmente por simplificação do problema, embora em uma oportunidade futura podemos rever essa escolha. Temos então para a variável resposta <span class="math inline">\(Y
+= 1\)</span>, se a música é mais positiva (valência &gt; 0,5), e <span class="math inline">\(Y
+= 0\)</span>, caso contrário.</p>
 <p>Supomos que <span class="math inline">\(P(Y = 1) = p\)</span> e utilizando o modelo de regressão logístico podemos escrever essa probabilidade como</p>
 <p><span class="math display">\[\begin{equation}
 p = \frac{e^{X\beta}}{1 +
@@ -311,7 +342,7 @@ e^{X\beta}},
 <p>em que colocamos na matriz de planejamento X nossas covariáveis. Nosso interesse é estimar o vetor <span class="math inline">\(\beta\)</span> segundo a nossa amostra de 100 músicas. Uma vez com beta estimado e a depender dos valores de X de uma dada música, podemos então estimar a probabilidade da música ser positiva ao considerar a relação dada na equação acima.</p>
 <p>Antes de estimar o modelo, podemos checar se as covariáveis (após uma padronização dos seus valores) possuem algum tipo de correlação alta entre si, fazendo por exemplo:</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>variaveis_preditoras <span class="ot">&lt;-</span> todas_musicas <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
@@ -330,7 +361,7 @@ e^{X\beta}},
 <p>A análise do gráfico anterior nos mostra que as variáveis <code>escore_sonoridade</code> e <code>escore_energia</code> têm uma correlação alta. Apesar disso, vamos manter as duas variáveis na matriz de planejamento <span class="math inline">\(X\)</span>, porém nos atentaremos às estimativas do modelo.</p>
 <p>Para estimação dos parâmetros do modelo vamos considerar a inferência bayesiana, através do pacote <code>rstanarm</code>. Uma introdução básica ao tema pode ser vista no <a href="https://pt.wikipedia.org/wiki/Infer%C3%AAncia_bayesiana">link</a>. Para a definição das nossas crenças a priori sobre o vetor de parâmetros <span class="math inline">\(\beta\)</span>, consideramos uma distribuição t-Student com 7 graus de liberdade, conforme discussão feita <a href="https://avehtari.github.io/modelselection/diabetes.html">aqui</a>.</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_model <span class="ot">&lt;-</span> variaveis_preditoras</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_model<span class="sc">$</span>outcome <span class="ot">&lt;-</span> todas_musicas<span class="sc">$</span>valencia_cat</span>
@@ -349,7 +380,7 @@ e^{X\beta}},
 </div>
 <p>Podemos verificar densidades das distribuições a posteriori dos parâmetros, fazendo</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo, <span class="st">"areas"</span>, <span class="at">prob =</span> <span class="fl">0.95</span>, <span class="at">prob_outer =</span> <span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -359,13 +390,13 @@ e^{X\beta}},
 </center>
 <p>E se quisermos as estimativas pontuais e também os respectivos intervalos de credibilidade, podemos utilizar o seguinte:</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(modelo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="table-responsive">
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th></th>
@@ -413,13 +444,13 @@ e^{X\beta}},
 </table>
 </div>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">posterior_interval</span>(modelo, <span class="at">prob =</span> <span class="fl">0.95</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="table-responsive">
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th></th>
@@ -483,7 +514,7 @@ e^{X\beta}},
 </blockquote>
 <p>Sendo assim, gostaríamos de selecionar aquelas com maiores valores a probabilidade de ser positiva baseado nos coeficientes do objeto <code>modelo</code> que estimamos anteriormente. Poderíamos eventualmente selecionar dentre todos os modelos que foram estimados, aquele com a maior discrimação, porém vamos deixar esse tipo de análise para <em>posts</em> futuros. Podemos obter as músicas e suas respectivas variáveis da mesma maneira que fizemos anteriormente.</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>musicas_dia_faxina <span class="ot">&lt;-</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    Rspotify<span class="sc">::</span><span class="fu">getPlaylistSongs</span>(</span>
@@ -520,7 +551,7 @@ e^{X\beta}},
 <p>Aqui estamos supondo que as escalas das variáveis do banco de dados que foi utilizado para estimação do modelo e desse banco de dados que usaremos para as previsões são similares, mas isso poderia ser investigado com mais cuidado. Além disso, esse exercício de previsão poderia ser considerado dispensável, dado que temos disponível a variável <code>valencia</code> também para as variáveis dessa <em>playlist</em>. Porém, supondo que os coeficientes estimados no modelo anterior conseguem explicar parte da variabilidade da <strong>positividade</strong> das músicas em geral, entendemos que esse modelo possa ser utilizado no caso brasileiro.</p>
 <p>Dessa forma, podemos obter as previsões das probabilidades fazendo o cálculo das probabilidades:</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">cbind</span>(<span class="dv">1</span>, variaveis_predicao))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -539,7 +570,7 @@ e^{X\beta}},
 </details>
 </div>
 <div class="table-responsive">
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 32%">
 <col style="width: 53%">
@@ -612,7 +643,7 @@ e^{X\beta}},
 <h2 class="anchored" data-anchor-id="informações-adicionais">Informações adicionais</h2>
 <p>Com relação à escolha do valor intermediário em que fixamos o valor igual a 0,5, podemos variar essa quantidade e verificar se nossa inferência com relação aos parâmetros se altera. Para isso, podemos utilizar os quantis da variável <code>valencia</code> conforme:</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sequencia_quantis <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="at">length =</span> <span class="dv">21</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>quantis_valencia <span class="ot">&lt;-</span> <span class="fu">quantile</span>(todas_musicas<span class="sc">$</span>valencia, sequencia_quantis)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -620,7 +651,7 @@ e^{X\beta}},
 </div>
 <p>Podemos usar o objeto <code>quantis_valencia</code> e estimar o modelo diversas vezes, guardando as estimativas obtidas ao final, assim como o valor da variável resposta utilizada.</p>
 <div class="cell">
-<details open="">
+<details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(quantis_valencia), <span class="cf">function</span>(a) {</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    todas_musicas <span class="ot">&lt;-</span> todas_musicas <span class="sc">%&gt;%</span></span>
@@ -705,18 +736,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -748,11 +768,48 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.josecarlosinfo\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -762,8 +819,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -775,7 +841,129 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -819,6 +1007,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -844,6 +1033,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -909,12 +1124,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center"><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></div>
+    <div class="nav-footer-center">
+<p><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 
