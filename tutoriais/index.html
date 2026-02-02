@@ -63,8 +63,9 @@ ul.task-list li input[type="checkbox"] {
 
     const options = {
       valueNames: ['listing-image','listing-date','listing-title','listing-author','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-categories"],
+      page: 5,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -194,7 +195,7 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categorias</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">Tudo <span class="quarto-category-count">(0)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categorias</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">Tudo <span class="quarto-category-count">(21)</span></div><div class="category" data-category="QW5hbGlzZSUyMGRlJTIwZGFkb3M=">Analise de dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="QW4lQzMlQTFsaXNlJTIwSW5mZXJlbmNpYWw=">Análise Inferencial <span class="quarto-category-count">(2)</span></div><div class="category" data-category="QW4lQzMlQTFsaXNlJTIwUHJlZGl0aXZh">Análise Preditiva <span class="quarto-category-count">(3)</span></div><div class="category" data-category="QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw==">Análise de Dados <span class="quarto-category-count">(9)</span></div><div class="category" data-category="QW4lQzMlQTFsaXNlJTIwZGUlMjBTb2JyZXZpdiVDMyVBQW5jaWE=">Análise de Sobrevivência <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Qm9hcyUyMFByJUMzJUExdGljYXM=">Boas Práticas <span class="quarto-category-count">(3)</span></div><div class="category" data-category="RGF0YSUyMFdyYW5nbGluZw==">Data Wrangling <span class="quarto-category-count">(12)</span></div><div class="category" data-category="RGF0YVZpeg==">DataViz <span class="quarto-category-count">(2)</span></div><div class="category" data-category="RXN0YXQlQzMlQURzdGljYQ==">Estatística <span class="quarto-category-count">(9)</span></div><div class="category" data-category="R2l0JTJGR2l0SHVi">Git/GitHub <span class="quarto-category-count">(2)</span></div><div class="category" data-category="R3IlQzMlQTFmaWNvcw==">Gráficos <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TUw=">ML <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHJvZ3JhbWElQzMlQTclQzMlQTNv">Programação <span class="quarto-category-count">(3)</span></div><div class="category" data-category="UXVhcnRv">Quarto <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(18)</span></div><div class="category" data-category="U2ElQzMlQkFkZQ==">Saúde <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2ltdWxhJUMzJUE3JUMzJUEzbw==">Simulação <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGVvcmlh">Teoria <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwZGFkb3M=">Visualização de dados <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Z2dwbG90">ggplot <span class="quarto-category-count">(5)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -282,11 +283,877 @@ ul li {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-
+<div class="quarto-post image-right" data-index="0" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwU29icmV2aXYlQzMlQUFuY2lhJTJDUg==" data-listing-date-sort="1769914800000" data-listing-file-modified-sort="1769997028998" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4251">
+<div class="thumbnail">
+<p><a href="../tutoriais/24_modelos_mistura_cura/index.html" class="no-external"></a></p><a href="../tutoriais/24_modelos_mistura_cura/index.html" class="no-external">
+<p><img loading="lazy" src="../tutoriais/24_modelos_mistura_cura/capa.png" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/24_modelos_mistura_cura/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/24_modelos_mistura_cura/index.html" class="no-external">Modelos de mistura com fração de cura em R utilizando o pacote flexsurvcure</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/24_modelos_mistura_cura/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYQ=='); return false;">
+Estatística
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBTb2JyZXZpdiVDMyVBQW5jaWE='); return false;">
+Análise de Sobrevivência
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/24_modelos_mistura_cura/index.html" class="no-external">Este post apresenta modelos de cura na Análise de Sobrevivência, uma abordagem essencial para dados em que uma parcela dos indivíduos nunca experimenta o evento, ilustrada com uma aplicação a dados de COVID-19</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/24_modelos_mistura_cura/index.html" class="no-external">
+<div class="listing-date">
+01/02/2026
+</div>
+<div class="listing-author">
+Esley Caminhas Ferreira
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="UXVhcnRvJTJDVmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwZGFkb3M=" data-listing-date-sort="1764212400000" data-listing-file-modified-sort="1764280089901" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1233">
+<div class="thumbnail">
+<p><a href="../tutoriais/23_quarto_slide_tutorial/index.html" class="no-external"></a></p><a href="../tutoriais/23_quarto_slide_tutorial/index.html" class="no-external">
+<p><img loading="lazy" src="../tutoriais/23_quarto_slide_tutorial/capa.jpeg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/23_quarto_slide_tutorial/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/23_quarto_slide_tutorial/index.html" class="no-external">Slides no Quarto</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/23_quarto_slide_tutorial/index.html" class="no-external">Um simples tutorial</a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">
+Quarto
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('VmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwZGFkb3M='); return false;">
+Visualização de dados
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/23_quarto_slide_tutorial/index.html" class="no-external">Aqui você vai aprender o básico que precisa para fazer uma apresentação de slides usando o Quarto por meio do RStudio.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/23_quarto_slide_tutorial/index.html" class="no-external">
+<div class="listing-date">
+27/11/2025
+</div>
+<div class="listing-author">
+Livia Ribeiro Melgaço
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="R3IlQzMlQTFmaWNvcyUyQ1IlMkNBbmFsaXNlJTIwZGUlMjBkYWRvcyUyQ1Zpc3VhbGl6YSVDMyVBNyVDMyVBM28lMjBkZSUyMGRhZG9z" data-listing-date-sort="1750906800000" data-listing-file-modified-sort="1764275338472" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2767">
+<div class="thumbnail">
+<p><a href="../tutoriais/22_heatmap_tutorial/index.html" class="no-external"></a></p><a href="../tutoriais/22_heatmap_tutorial/index.html" class="no-external">
+<p><img loading="lazy" src="../tutoriais/22_heatmap_tutorial/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/22_heatmap_tutorial/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/22_heatmap_tutorial/index.html" class="no-external">Mapas de Calor no R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/22_heatmap_tutorial/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('R3IlQzMlQTFmaWNvcw=='); return false;">
+Gráficos
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW5hbGlzZSUyMGRlJTIwZGFkb3M='); return false;">
+Analise de dados
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('VmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwZGFkb3M='); return false;">
+Visualização de dados
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/22_heatmap_tutorial/index.html" class="no-external">Neste tutorial será ensinado como construir mapas de calor no R</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/22_heatmap_tutorial/index.html" class="no-external">
+<div class="listing-date">
+26/06/2025
+</div>
+<div class="listing-author">
+Beatriz Lima Silveira
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="Z2dwbG90JTJDRGF0YVZpeiUyQ1IlMkNBbiVDMyVBMWxpc2UlMjBkZSUyMERhZG9zJTJDRXN0YXQlQzMlQURzdGljYQ==" data-listing-date-sort="1635735600000" data-listing-file-modified-sort="1764275338466" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2211">
+<div class="thumbnail">
+<p><a href="../tutoriais/20_como_construir_graficos_com_ggplot2/index.html" class="no-external"></a></p><a href="../tutoriais/20_como_construir_graficos_com_ggplot2/index.html" class="no-external">
+<p><img loading="lazy" src="../tutoriais/20_como_construir_graficos_com_ggplot2/capa.png" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/20_como_construir_graficos_com_ggplot2/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/20_como_construir_graficos_com_ggplot2/index.html" class="no-external">Como construir gráficos com ggplot2</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/20_como_construir_graficos_com_ggplot2/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Z2dwbG90'); return false;">
+ggplot
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YVZpeg=='); return false;">
+DataViz
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
+Análise de Dados
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYQ=='); return false;">
+Estatística
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/20_como_construir_graficos_com_ggplot2/index.html" class="no-external">O R é amplamente utilizado para visualização exploratória de dados, oferecendo diversos pacotes gráficos, como grid, lattice e ggplot2. Neste post vamos focar no ggplot2, parte do tidyverse, conhecido por criar visualizações poderosas no R.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/20_como_construir_graficos_com_ggplot2/index.html" class="no-external">
+<div class="listing-date">
+01/11/2021
+</div>
+<div class="listing-author">
+Flavia de Jesus
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="RGF0YSUyMFdyYW5nbGluZyUyQ1I=" data-listing-date-sort="1630465200000" data-listing-file-modified-sort="1764275338464" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3910">
+<div class="thumbnail">
+<p><a href="../tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html" class="no-external"></a></p><a href="../tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html" class="no-external">
+<p><img loading="lazy" src="../tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html" class="no-external">Como organizar seu banco de dados com tibble e tidyr</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html" class="no-external">As bases de dados contêm informações de várias classes, geralmente estruturadas em data.frames, mas podem ser aprimoradas com tibbles para melhor manipulação e apresentação. O pacote tidyr oferece soluções para organizar tibbles desorganizados, o que será explorado neste post.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html" class="no-external">
+<div class="listing-date">
+01/09/2021
+</div>
+<div class="listing-author">
+Flavia de Jesus
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="UiUyQ1Byb2dyYW1hJUMzJUE3JUMzJUEzbyUyQ0RhdGElMjBXcmFuZ2xpbmclMkNBbiVDMyVBMWxpc2UlMjBQcmVkaXRpdmElMkNBbiVDMyVBMWxpc2UlMjBkZSUyMERhZG9z" data-listing-date-sort="1627786800000" data-listing-file-modified-sort="1764275338463" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="46" data-listing-word-count-sort="9126">
+<div class="thumbnail">
+<p><a href="../tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html" class="no-external"></a></p><a href="../tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html" class="no-external">Ronronando com programação funcional e o pacote purrr no R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('UHJvZ3JhbWElQzMlQTclQzMlQTNv'); return false;">
+Programação
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwUHJlZGl0aXZh'); return false;">
+Análise Preditiva
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
+Análise de Dados
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html" class="no-external">Explore o pacote purrr do tidyverse, repleto de ferramentas para manipulação de funções e vetores. Com foco na programação funcional, é uma adição valiosa ao R, ampliando suas capacidades além de sua natureza não intrinsecamente funcional.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html" class="no-external">
+<div class="listing-date">
+01/08/2021
+</div>
+<div class="listing-author">
+Pedro de Brito Neto
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="RGF0YSUyMFdyYW5nbGluZyUyQ1I=" data-listing-date-sort="1626318000000" data-listing-file-modified-sort="1764275338463" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="28" data-listing-word-count-sort="5544">
+<div class="thumbnail">
+<p><a href="../tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html" class="no-external"></a></p><a href="../tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html" class="no-external">Como tratar a ordem dos fatores com forcats no R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html" class="no-external">No R, diversas classes de objetos, como dataframes, fatores e vetores, são essenciais para análise de dados. Explore os objetos da classe fator e descubra o pacote ideal para manipulá-los de maneira eficaz.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html" class="no-external">
+<div class="listing-date">
+15/07/2021
+</div>
+<div class="listing-author">
+Flavia de Jesus
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="RGF0YSUyMFdyYW5nbGluZyUyQ1IlMkNBbiVDMyVBMWxpc2UlMjBkZSUyMERhZG9zJTJDUHJvZ3JhbWElQzMlQTclQzMlQTNv" data-listing-date-sort="1625108400000" data-listing-file-modified-sort="1764275338463" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="36" data-listing-word-count-sort="7172">
+<div class="thumbnail">
+<p><a href="../tutoriais/16_lapidando_strings/index.html" class="no-external"></a></p><a href="../tutoriais/16_lapidando_strings/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/16_lapidando_strings/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/16_lapidando_strings/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/16_lapidando_strings/index.html" class="no-external">Lapidando strings</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/16_lapidando_strings/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
+Análise de Dados
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('UHJvZ3JhbWElQzMlQTclQzMlQTNv'); return false;">
+Programação
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/16_lapidando_strings/index.html" class="no-external">A manipulação eficaz de dados frequentemente envolve lidar com strings, que consistem em letras, símbolos e números representando informações escritas. Descubra como abordar strings utilizando o R.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/16_lapidando_strings/index.html" class="no-external">
+<div class="listing-date">
+01/07/2021
+</div>
+<div class="listing-author">
+Pedro de Brito Neto
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="RGF0YSUyMFdyYW5nbGluZyUyQ1IlMkNnZ3Bsb3QlMkNBbiVDMyVBMWxpc2UlMjBkZSUyMERhZG9z" data-listing-date-sort="1619319600000" data-listing-file-modified-sort="1764275338462" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3140">
+<div class="thumbnail">
+<p><a href="../tutoriais/15_mergulhando_no_tidyverse/index.html" class="no-external"></a></p><a href="../tutoriais/15_mergulhando_no_tidyverse/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/15_mergulhando_no_tidyverse/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/15_mergulhando_no_tidyverse/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/15_mergulhando_no_tidyverse/index.html" class="no-external">Mergulhando no tidyverse</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/15_mergulhando_no_tidyverse/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Z2dwbG90'); return false;">
+ggplot
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
+Análise de Dados
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/15_mergulhando_no_tidyverse/index.html" class="no-external">O tidyverse, uma coleção de pacotes no R, facilita manipulação, exploração e visualização de dados. Sua filosofia de design coesa permite realizar uma variedade de tarefas analíticas de forma integrada. Descubra como aproveitá-lo para análise de dados no R.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/15_mergulhando_no_tidyverse/index.html" class="no-external">
+<div class="listing-date">
+25/04/2021
+</div>
+<div class="listing-author">
+Pedro de Brito Neto
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="RGF0YSUyMFdyYW5nbGluZyUyQ1I=" data-listing-date-sort="1619233200000" data-listing-file-modified-sort="1764275338462" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="37" data-listing-word-count-sort="7308">
+<div class="thumbnail">
+<p><a href="../tutoriais/14_utilizando_o_pacote_dplyr/index.html" class="no-external"></a></p><a href="../tutoriais/14_utilizando_o_pacote_dplyr/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/14_utilizando_o_pacote_dplyr/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/14_utilizando_o_pacote_dplyr/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/14_utilizando_o_pacote_dplyr/index.html" class="no-external">Utilizando o pacote dplyr</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/14_utilizando_o_pacote_dplyr/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/14_utilizando_o_pacote_dplyr/index.html" class="no-external">O dplyr, um pacote do R para manipulação de dados, oferece uma variedade de funções (ou verbos) para operações como filtragem, seleção, classificação, adição ou exclusão de colunas e agregação de dados. Além de suas funções essenciais, o dplyr simplifica a manipulação de dados, tornando o código mais intuitivo e fácil de ler. Aprenda a usar o dplyr no R.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/14_utilizando_o_pacote_dplyr/index.html" class="no-external">
+<div class="listing-date">
+24/04/2021
+</div>
+<div class="listing-author">
+Flavia de Jesus
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-categories="Qm9hcyUyMFByJUMzJUExdGljYXMlMkNHaXQlMkZHaXRIdWI=" data-listing-date-sort="1619146800000" data-listing-file-modified-sort="1764275338461" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1786">
+<div class="thumbnail">
+<p><a href="../tutoriais/13_boas_praticas_com_git_e_github/index.html" class="no-external"></a></p><a href="../tutoriais/13_boas_praticas_com_git_e_github/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/13_boas_praticas_com_git_e_github/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/13_boas_praticas_com_git_e_github/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/13_boas_praticas_com_git_e_github/index.html" class="no-external">As boas práticas com Git &amp; GitHub</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/13_boas_praticas_com_git_e_github/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Qm9hcyUyMFByJUMzJUExdGljYXM='); return false;">
+Boas Práticas
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R2l0JTJGR2l0SHVi'); return false;">
+Git/GitHub
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/13_boas_praticas_com_git_e_github/index.html" class="no-external">Este post propõe práticas simples para trabalhar eficientemente em grupo nas plataformas Git e GitHub, visando um fluxo de trabalho produtivo e um convívio harmonioso entre os membros da equipe.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/13_boas_praticas_com_git_e_github/index.html" class="no-external">
+<div class="listing-date">
+23/04/2021
+</div>
+<div class="listing-author">
+Ornella Scardua
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-categories="QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcyUyQ1IlMkNEYXRhJTIwV3JhbmdsaW5nJTJDRXN0YXQlQzMlQURzdGljYQ==" data-listing-date-sort="1617850800000" data-listing-file-modified-sort="1764275338454" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="44" data-listing-word-count-sort="8662">
+<div class="thumbnail">
+<p><a href="../tutoriais/12_o_melhor_filme_do_tomhanks/index.html" class="no-external"></a></p><a href="../tutoriais/12_o_melhor_filme_do_tomhanks/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/12_o_melhor_filme_do_tomhanks/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/12_o_melhor_filme_do_tomhanks/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/12_o_melhor_filme_do_tomhanks/index.html" class="no-external">O melhor filme do Tom Hanks</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/12_o_melhor_filme_do_tomhanks/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
+Análise de Dados
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYQ=='); return false;">
+Estatística
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/12_o_melhor_filme_do_tomhanks/index.html" class="no-external">No Episódio 606 do Podcast RapaduraCast, os participantes elegem o melhor filme de Tom Hanks através de discussão e opiniões. A questão levantada neste post é se a escolha do Rapadura coincide com as avaliações do IMDb. Vamos analisar os filmes do Tom Hanks usando R.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/12_o_melhor_filme_do_tomhanks/index.html" class="no-external">
+<div class="listing-date">
+08/04/2021
+</div>
+<div class="listing-author">
+Agatha S. Rodrigues
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-categories="U2ltdWxhJUMzJUE3JUMzJUEzbyUyQ0VzdGF0JUMzJUFEc3RpY2ElMkNBbiVDMyVBMWxpc2UlMjBkZSUyMERhZG9zJTJDUiUyQ0RhdGElMjBXcmFuZ2xpbmc=" data-listing-date-sort="1616986800000" data-listing-file-modified-sort="1764275338452" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="29" data-listing-word-count-sort="5733">
+<div class="thumbnail">
+<p><a href="../tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html" class="no-external"></a></p><a href="../tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/capa.gif" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html" class="no-external">Simulando campeões no Campeonato Brasileiro de 2020</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('U2ltdWxhJUMzJUE3JUMzJUEzbw=='); return false;">
+Simulação
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYQ=='); return false;">
+Estatística
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
+Análise de Dados
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html" class="no-external">Falando sobre processos aleatórios, podemos fazer afirmações sobre a incerteza de um conjunto desses processos. Por exemplo, ao simular resultados de jogos de futebol com base em variáveis aleatórias, poderíamos simular o resultado de uma partida entre dois times simulando a quantidade de gols que cada um marcaria. Este post explora como realizar simulações de futebol usando R.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html" class="no-external">
+<div class="listing-date">
+29/03/2021
+</div>
+<div class="listing-author">
+Bruno Santos
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="13" data-categories="UiUyQ0RhdGElMjBXcmFuZ2xpbmc=" data-listing-date-sort="1614913200000" data-listing-file-modified-sort="1764275338448" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4326">
+<div class="thumbnail">
+<p><a href="../tutoriais/10_importando_dados_no_R/index.html" class="no-external"></a></p><a href="../tutoriais/10_importando_dados_no_R/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/10_importando_dados_no_R/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/10_importando_dados_no_R/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/10_importando_dados_no_R/index.html" class="no-external">Importando dados no R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/10_importando_dados_no_R/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/10_importando_dados_no_R/index.html" class="no-external">Ao trabalhar com análise de dados no R, a importação dos dados é o primeiro passo essencial. Este post aborda como importar arquivos de diferentes formatos e fontes, incluindo texto, Excel, SPSS e dados da internet.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/10_importando_dados_no_R/index.html" class="no-external">
+<div class="listing-date">
+05/03/2021
+</div>
+<div class="listing-author">
+Flavia de Jesus
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="14" data-categories="Qm9hcyUyMFByJUMzJUExdGljYXMlMkNQcm9ncmFtYSVDMyVBNyVDMyVBM28lMkNS" data-listing-date-sort="1612234800000" data-listing-file-modified-sort="1764275338532" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1380">
+<div class="thumbnail">
+<p><a href="../tutoriais/8_boas_praticas_no_software_R/index.html" class="no-external"></a></p><a href="../tutoriais/8_boas_praticas_no_software_R/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/8_boas_praticas_no_software_R/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/8_boas_praticas_no_software_R/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/8_boas_praticas_no_software_R/index.html" class="no-external">Boas práticas no software R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/8_boas_praticas_no_software_R/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Qm9hcyUyMFByJUMzJUExdGljYXM='); return false;">
+Boas Práticas
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('UHJvZ3JhbWElQzMlQTclQzMlQTNv'); return false;">
+Programação
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/8_boas_praticas_no_software_R/index.html" class="no-external">Boas práticas são essenciais para criar código organizado e compreensível. Este post aborda as melhores práticas de programação no R.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/8_boas_praticas_no_software_R/index.html" class="no-external">
+<div class="listing-date">
+02/02/2021
+</div>
+<div class="listing-author">
+Pedro de Brito Neto
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="15" data-categories="R2l0JTJGR2l0SHViJTJDUiUyQ0JvYXMlMjBQciVDMyVBMXRpY2Fz" data-listing-date-sort="1609124400000" data-listing-file-modified-sort="1764275338519" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1944">
+<div class="thumbnail">
+<p><a href="../tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html" class="no-external"></a></p><a href="../tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html" class="no-external">Como trabalhar em grupo sem sofrer com o controle de versões</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('R2l0JTJGR2l0SHVi'); return false;">
+Git/GitHub
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Qm9hcyUyMFByJUMzJUExdGljYXM='); return false;">
+Boas Práticas
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html" class="no-external">O Controle de Versão é crucial para gerenciar diferentes versões de um documento. Este post ensina como usar o controle de versão para colaboração eficaz em grupo.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html" class="no-external">
+<div class="listing-date">
+28/12/2020
+</div>
+<div class="listing-author">
+Flavia de Jesus, Gabriella Demarque
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="16" data-categories="QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcyUyQ0VzdGF0JUMzJUFEc3RpY2ElMkNSJTJDRGF0YSUyMFdyYW5nbGluZyUyQ2dncGxvdA==" data-listing-date-sort="1605841200000" data-listing-file-modified-sort="1764275338496" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3011">
+<div class="thumbnail">
+<p><a href="../tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html" class="no-external"></a></p><a href="../tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html" class="no-external">Como usar o R para analisar dados da Covid-19 no Espírito Santo</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
+Análise de Dados
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYQ=='); return false;">
+Estatística
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Z2dwbG90'); return false;">
+ggplot
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html" class="no-external">Diante da pandemia do novo coronavírus, destaca-se a necessidade de políticas públicas para grupos raciais no Brasil. Este post aborda o uso dos dados do Painel da Covid-19 do ES para análises pertinentes neste contexto.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html" class="no-external">
+<div class="listing-date">
+20/11/2020
+</div>
+<div class="listing-author">
+Pedro de Brito Neto
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="17" data-categories="QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcyUyQ0VzdGF0JUMzJUFEc3RpY2ElMkNSJTJDRGF0YSUyMFdyYW5nbGluZw==" data-listing-date-sort="1593572400000" data-listing-file-modified-sort="1764275338494" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="25" data-listing-word-count-sort="4818">
+<div class="thumbnail">
+<p><a href="../tutoriais/4_analise_do_melhor_canal_do_youtube/index.html" class="no-external"></a></p><a href="../tutoriais/4_analise_do_melhor_canal_do_youtube/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/4_analise_do_melhor_canal_do_youtube/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/4_analise_do_melhor_canal_do_youtube/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/4_analise_do_melhor_canal_do_youtube/index.html" class="no-external">Analisando o melhor canal do YouTube</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/4_analise_do_melhor_canal_do_youtube/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
+Análise de Dados
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYQ=='); return false;">
+Estatística
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/4_analise_do_melhor_canal_do_youtube/index.html" class="no-external">Neste post, vamos analisar alguns números do canal do YouTube chamado Meteoro Brasil. Utilizaremos o R, apresentando os vídeos que se destacam em algumas estatísticas.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/4_analise_do_melhor_canal_do_youtube/index.html" class="no-external">
+<div class="listing-date">
+01/07/2020
+</div>
+<div class="listing-author">
+Agatha S. Rodrigues
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="18" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ1IlMkNEYXRhVml6JTJDZ2dwbG90JTJDVGVvcmlh" data-listing-date-sort="1592794800000" data-listing-file-modified-sort="1764275338480" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1557">
+<div class="thumbnail">
+<p><a href="../tutoriais/3_animacoes_conceitos_estatisticos/index.html" class="no-external"></a></p><a href="../tutoriais/3_animacoes_conceitos_estatisticos/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/3_animacoes_conceitos_estatisticos/capa.gif" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/3_animacoes_conceitos_estatisticos/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/3_animacoes_conceitos_estatisticos/index.html" class="no-external">Usando animações para entender conceitos estatísticos: o passeio aleatório do Pacman</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/3_animacoes_conceitos_estatisticos/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYQ=='); return false;">
+Estatística
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YVZpeg=='); return false;">
+DataViz
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Z2dwbG90'); return false;">
+ggplot
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('VGVvcmlh'); return false;">
+Teoria
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/3_animacoes_conceitos_estatisticos/index.html" class="no-external">Entender conceitos estatísticos pode ser desafiador, mas a visualização através de figuras e animações pode torná-los mais claros. Descubra neste post como criar animações para aprender estatística.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/3_animacoes_conceitos_estatisticos/index.html" class="no-external">
+<div class="listing-date">
+22/06/2020
+</div>
+<div class="listing-author">
+Bruno Santos
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="19" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ1IlMkNBbiVDMyVBMWxpc2UlMjBkZSUyMERhZG9zJTJDQW4lQzMlQTFsaXNlJTIwUHJlZGl0aXZhJTJDQW4lQzMlQTFsaXNlJTIwSW5mZXJlbmNpYWwlMkNEYXRhJTIwV3JhbmdsaW5nJTJDZ2dwbG90" data-listing-date-sort="1591585200000" data-listing-file-modified-sort="1764275338473" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3318">
+<div class="thumbnail">
+<p><a href="../tutoriais/2_playlists_no_Spotify/index.html" class="no-external"></a></p><a href="../tutoriais/2_playlists_no_Spotify/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/2_playlists_no_Spotify/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/2_playlists_no_Spotify/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/2_playlists_no_Spotify/index.html" class="no-external">Construindo playlists no Spotify a partir de modelos probabilísticos</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/2_playlists_no_Spotify/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYQ=='); return false;">
+Estatística
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
+Análise de Dados
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwUHJlZGl0aXZh'); return false;">
+Análise Preditiva
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwSW5mZXJlbmNpYWw='); return false;">
+Análise Inferencial
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">
+Data Wrangling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Z2dwbG90'); return false;">
+ggplot
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/2_playlists_no_Spotify/index.html" class="no-external">Aprenda a construir um modelo estatístico utilizando o software R para montar uma playlist no Spotify, onde as músicas são incluídas baseando-se na positividade que cada uma transmite.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/2_playlists_no_Spotify/index.html" class="no-external">
+<div class="listing-date">
+08/06/2020
+</div>
+<div class="listing-author">
+Bruno Santos
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="20" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ01MJTJDQW4lQzMlQTFsaXNlJTIwUHJlZGl0aXZhJTJDQW4lQzMlQTFsaXNlJTIwSW5mZXJlbmNpYWwlMkNTYSVDMyVCQWRl" data-listing-date-sort="1590980400000" data-listing-file-modified-sort="1764275338466" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1436">
+<div class="thumbnail">
+<p><a href="../tutoriais/1_Interpretabilidade_em_modelos/index.html" class="no-external"></a></p><a href="../tutoriais/1_Interpretabilidade_em_modelos/index.html" class="no-external">
+<p><img loading="lazy" data-src="../tutoriais/1_Interpretabilidade_em_modelos/capa.jpg" class="thumbnail-image" style="height: 190px;"></p>
+</a><p><a href="../tutoriais/1_Interpretabilidade_em_modelos/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../tutoriais/1_Interpretabilidade_em_modelos/index.html" class="no-external">Interpretabilidade em modelos preditivos – discussões iniciais na área da saúde</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../tutoriais/1_Interpretabilidade_em_modelos/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYQ=='); return false;">
+Estatística
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('TUw='); return false;">
+ML
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwUHJlZGl0aXZh'); return false;">
+Análise Preditiva
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwSW5mZXJlbmNpYWw='); return false;">
+Análise Inferencial
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('U2ElQzMlQkFkZQ=='); return false;">
+Saúde
+</div>
+</div>
+<div class="listing-description">
+<a href="../tutoriais/1_Interpretabilidade_em_modelos/index.html" class="no-external">Entenda as diferenças entre os modelos com intuito explicativo e os modelos com intuito preditivo, e como a escolha correta impacta na tomada de decisão.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../tutoriais/1_Interpretabilidade_em_modelos/index.html" class="no-external">
+<div class="listing-date">
+01/06/2020
+</div>
+<div class="listing-author">
+Agatha S. Rodrigues
+</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">
 Nenhum item correspondente
 </div>
+<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
