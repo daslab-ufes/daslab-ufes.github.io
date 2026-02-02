@@ -1,123 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/index.html</loc>
-    <lastmod>2025-11-27T20:50:37.220Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/8_boas_praticas_no_software_R/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.532Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.519Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/4_analise_do_melhor_canal_do_youtube/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.494Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/2_playlists_no_Spotify/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.473Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/21_incrementando_seus graficos_com_ggplot2/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.468Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/1_Interpretabilidade_em_modelos/index.html</loc>
-    <lastmod>2025-06-29T17:34:01.342Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.463Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/16_lapidando_strings/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.463Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/14_utilizando_o_pacote_dplyr/index.html</loc>
-    <lastmod>2025-06-29T17:33:48.395Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/12_o_melhor_filme_do_tomhanks/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.454Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/10_importando_dados_no_R/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.448Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/projetos/index.html</loc>
-    <lastmod>2025-06-29T17:33:33.871Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.438Z</lastmod>
+    <loc>https://www.josecarlosinfo.com/contato/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.417Z</lastmod>
   </url>
   <url>
     <loc>https://www.josecarlosinfo.com/eventos/Ciclo_de_Seminarios_do_DaSLab/index.html</loc>
     <lastmod>2025-11-27T20:28:58.425Z</lastmod>
   </url>
   <url>
-    <loc>https://www.josecarlosinfo.com/contato/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.417Z</lastmod>
+    <loc>https://www.josecarlosinfo.com/tutoriais/22_heatmap_tutorial/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.472Z</lastmod>
   </url>
   <url>
-    <loc>https://www.josecarlosinfo.com/ensinar/index.html</loc>
-    <lastmod>2025-06-29T17:33:25.952Z</lastmod>
+    <loc>https://www.josecarlosinfo.com/tutoriais/8_boas_praticas_no_software_R/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.532Z</lastmod>
   </url>
   <url>
-    <loc>https://www.josecarlosinfo.com/eventos/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.427Z</lastmod>
+    <loc>https://www.josecarlosinfo.com/tutoriais/2_playlists_no_Spotify/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.473Z</lastmod>
   </url>
   <url>
-    <loc>https://www.josecarlosinfo.com/oobr/index.html</loc>
-    <lastmod>2025-06-29T17:33:32.787Z</lastmod>
+    <loc>https://www.josecarlosinfo.com/tutoriais/10_importando_dados_no_R/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.448Z</lastmod>
   </url>
   <url>
-    <loc>https://www.josecarlosinfo.com/sobre/index.html</loc>
-    <lastmod>2025-06-29T17:33:35.114Z</lastmod>
+    <loc>https://www.josecarlosinfo.com/tutoriais/6_trabalhar_em_grupo_sem_sofrer_com_controle_de_versoes/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.519Z</lastmod>
   </url>
   <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.452Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/13_boas_praticas_com_git_e_github/index.html</loc>
-    <lastmod>2025-06-29T17:33:44.125Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/15_mergulhando_no_tidyverse/index.html</loc>
-    <lastmod>2025-06-29T17:33:49.978Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html</loc>
+    <loc>https://www.josecarlosinfo.com/tutoriais/18_ronronando_com_programacao_funcional_e_o_pacote_purr_no_R/index.html</loc>
     <lastmod>2025-11-27T20:28:58.463Z</lastmod>
   </url>
   <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html</loc>
-    <lastmod>2025-06-29T17:33:59.883Z</lastmod>
+    <loc>https://www.josecarlosinfo.com/tutoriais/21_incrementando_seus graficos_com_ggplot2/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.468Z</lastmod>
   </url>
   <url>
     <loc>https://www.josecarlosinfo.com/tutoriais/20_como_construir_graficos_com_ggplot2/index.html</loc>
     <lastmod>2025-11-27T20:28:58.466Z</lastmod>
   </url>
   <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/22_heatmap_tutorial/index.html</loc>
-    <lastmod>2025-11-27T20:28:58.472Z</lastmod>
+    <loc>https://www.josecarlosinfo.com/tutoriais/1_Interpretabilidade_em_modelos/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.466Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/19_como_organizar_seu_banco_de_dados_com_tibble_e_tidyR/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.464Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/24_modelos_mistura_cura/index.html</loc>
+    <lastmod>2026-02-02T01:50:28.998Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/14_utilizando_o_pacote_dplyr/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.462Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/sobre/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.447Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/projetos/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.445Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/ensinar/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.420Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/oobr/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.441Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/15_mergulhando_no_tidyverse/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.462Z</lastmod>
   </url>
   <url>
     <loc>https://www.josecarlosinfo.com/tutoriais/3_animacoes_conceitos_estatisticos/index.html</loc>
-    <lastmod>2025-06-29T17:34:09.090Z</lastmod>
+    <lastmod>2025-11-27T20:28:58.480Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/13_boas_praticas_com_git_e_github/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.461Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/23_quarto_slide_tutorial/index.html</loc>
+    <lastmod>2025-11-27T21:48:09.901Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/12_o_melhor_filme_do_tomhanks/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.454Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/4_analise_do_melhor_canal_do_youtube/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.494Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/index.html</loc>
+    <lastmod>2026-02-02T01:45:16.785Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/11_simulando_campeoes_campeonato_brasileiro_2020/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.452Z</lastmod>
   </url>
   <url>
     <loc>https://www.josecarlosinfo.com/tutoriais/5_R_para_analisar_dados_covid19_espiritosanto/index.html</loc>
     <lastmod>2025-11-27T20:28:58.496Z</lastmod>
   </url>
   <url>
-    <loc>https://www.josecarlosinfo.com/tutoriais/23_quarto_slide_tutorial/index.html</loc>
-    <lastmod>2025-11-27T21:48:09.901Z</lastmod>
+    <loc>https://www.josecarlosinfo.com/tutoriais/16_lapidando_strings/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.463Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/tutoriais/17_como_tratar_ordem_dos_fatores_com_forcats_no_R/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.463Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.josecarlosinfo.com/eventos/index.html</loc>
+    <lastmod>2025-11-27T20:28:58.427Z</lastmod>
   </url>
 </urlset>
