@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/tutoriais/25_processamento_dados_financeiros/index.html",
       "/tutoriais/24_modelos_mistura_cura/index.html",
       "/tutoriais/23_quarto_slide_tutorial/index.html",
       "/tutoriais/22_heatmap_tutorial/index.html",
@@ -29,6 +30,7 @@
   {
     "listing": "/tutoriais/index.html",
     "items": [
+      "/tutoriais/25_processamento_dados_financeiros/index.html",
       "/tutoriais/24_modelos_mistura_cura/index.html",
       "/tutoriais/23_quarto_slide_tutorial/index.html",
       "/tutoriais/22_heatmap_tutorial/index.html",

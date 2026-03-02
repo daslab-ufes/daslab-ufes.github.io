@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ivan Cunha Vieira">
+<meta name="description" content="Este post apresenta modelos de cura na Análise de Sobrevivência, uma abordagem essencial para dados em que uma parcela dos indivíduos nunca experimenta o evento, ilustrada com uma aplicação a dados de COVID-19">
+
+<title>Extração, manipulação e apresentação de dados financeiros no R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../..//img/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d28d2f3f2f8d76b0baff2f08097e5fbd.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b97153e1831a0b2bef32c7a7d6cbed29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background-image: url(banner.png);
+background-size: cover;
+      }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../img/daslab-logo-removebg.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../sobre/index.html"> 
+<span class="menu-text">Sobre</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projetos/index.html"> 
+<span class="menu-text">Projetos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutoriais/index.html"> 
+<span class="menu-text">Tutoriais</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../ensinar/index.html"> 
+<span class="menu-text">ensinaR</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../oobr/index.html"> 
+<span class="menu-text">OOBr</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../eventos/index.html"> 
+<span class="menu-text">Eventos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../contato/index.html"> 
+<span class="menu-text">Contato</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Extração, manipulação e apresentação de dados financeiros no R</h1>
+                  <div>
+        <div class="description">
+          Este post apresenta modelos de cura na Análise de Sobrevivência, uma abordagem essencial para dados em que uma parcela dos indivíduos nunca experimenta o evento, ilustrada com uma aplicação a dados de COVID-19
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Estatística</div>
+                <div class="quarto-category">Dados financeiros</div>
+                <div class="quarto-category">R</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ivan Cunha Vieira </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Data de Publicação</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">2 de março de 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>Se você atua no mercado financeiro, com gestão de riscos, na área da economia ou de alguma forma trabalha com dados dessas áreas, provavelmente já se deparou com situações onde precisou lidar com dados de preços e volumes ao longo do tempo, com o objetivo de entender tendências, volatilidade e métricas desses dados. Nesses casos, a análise de séries temporais financeiras é a área estatística utilizada para resolver essas questões.</p>
+<p>A grande particularidade desse tipo de dado é a sua natureza estocástica e a presença de não-estacionariedade. Um dado financeiro bruto (como o preço de fechamento) muitas vezes não segue uma distribuição normal, exigindo transformações, como a transformação logarítmica, amplamente usada na área da economia.</p>
+<p>Para análises financeiras em R, ferramentas básicas como <code>ts()</code> permitem o tratamento de séries temporais. No entanto, expandimos essas possibilidades com os pacotes <code>quantmod</code> <span class="citation" data-cites="ryan2025quantmod">(<a href="#ref-ryan2025quantmod" role="doc-biblioref">Ryan e Ulrich 2025</a>)</span>, focado na extração direta de fontes de dados (como Yahoo Finance), e <code>PerformanceAnalytics</code> <span class="citation" data-cites="peterson2024performance">(<a href="#ref-peterson2024performance" role="doc-biblioref">Peterson e Carl 2024</a>)</span>, que abrange funções de análise técnica, como métricas específicas da área financeira.</p>
+<p>Neste texto, abordaremos a extração de cotações, o cálculo de retornos, a visualização de desempenho e o cálculo de métricas de ativos brasileiros (PETR4 e VALE3). Além disso, faremos uma comparação entre as visualizações do pacote <code>PerformanceAnalytics</code> e do ecossistema <code>tidyverse</code> <span class="citation" data-cites="wickham2019tidyverse">(<a href="#ref-wickham2019tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>, que permite uma manipulação e visualização dinâmica e elegante de dados, demonstrando como podemos utilizar o R para trabalharmos e apresentarmos com facilidade dados financeiros.</p>
+</section>
+<section id="sobre-os-dados" class="level2">
+<h2 class="anchored" data-anchor-id="sobre-os-dados">Sobre os dados</h2>
+<p>Para este exemplo, utilizaremos dados históricos diários de duas das maiores empresas da bolsa brasileira: <strong>Petrobras</strong> e <strong>Vale</strong> (que possuem os tickers <strong>PETR4.SA</strong> e <strong>VALE3.SA</strong>, respectivamente), compreendendo o período de 01/01/2020 a 31/12/2024. O que torna esse período particular e interessante é que ele engloba o período da pandemia e a posterior recuperação do mercado financeiro, permitindo visualizar eventos extremos dos dados econômicos.</p>
+</section>
+<section id="preparação-do-ambiente" class="level2">
+<h2 class="anchored" data-anchor-id="preparação-do-ambiente">Preparação do ambiente</h2>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalação dos pacotes</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("quantmod", "PerformanceAnalytics"))</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Chamando os pacotes para utilizarmos na seção</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="extração-de-dados-com-quantmod" class="level2">
+<h2 class="anchored" data-anchor-id="extração-de-dados-com-quantmod">Extração de dados com quantmod</h2>
+<p>A função <code>getSymbols()</code> do pacote <code>quantmod</code> é a ferramenta padrão para carregar dados diretamente de fontes públicas. Ela cria objetos do tipo <code>xts</code> (eXtensible Time Series), tipo de objetos lido pelas funções do pacote <code>PerformanceAnalytics</code> e que são matrizes indexadas por data. Esses objetos são criados automaticamente após o uso da função a partir do argumento <code>auto.assign = TRUE</code>.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definindo datas e tickers</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>inicio <span class="ot">&lt;-</span> <span class="st">"2020-01-01"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>fim <span class="ot">&lt;-</span> <span class="st">"2024-12-31"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>tickers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PETR4.SA"</span>, <span class="st">"VALE3.SA"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Extração dos dados do Yahoo Finance</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(tickers, <span class="at">src =</span> <span class="st">"yahoo"</span>, <span class="at">from =</span> inicio, <span class="at">to =</span> fim, </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">auto.assign =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "PETR4.SA" "VALE3.SA"</code></pre>
+</div>
+</div>
+<p>Ao inspecionar o objeto <code>PETR4.SA</code>, observamos a estrutura OHLCV (<em>Open</em>, <em>High</em>, <em>Low</em>, <em>Close</em>, <em>Volume</em>), uma estrutura de dados clássica usada em finanças para resumir a atividade do mercado por um determinado tempo, além do preço ajustado por dividendos e desdobramentos (<em>Adjusted</em>).</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primeiras 5 observações</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PETR4.SA, <span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>           PETR4.SA.Open PETR4.SA.High PETR4.SA.Low PETR4.SA.Close
+2020-01-02         30.51         30.70        30.31          30.70
+2020-01-03         30.88         31.24        30.45          30.45
+2020-01-06         30.43         30.94        29.95          30.81
+           PETR4.SA.Volume PETR4.SA.Adjusted
+2020-01-02        37774500          8.816065
+2020-01-03        71595600          8.744275
+2020-01-06        81844000          8.847654</code></pre>
+</div>
+</div>
+<p>É importante ressaltar que a coluna <em>Adjusted</em> é crucial para análises de longo prazo, pois nela é apresentado o desconto do pagamento de proventos, que no geral são remunerações ou benefícios distribuídos pelas empresas a seus investidores e/ou empregados, refletindo o retorno real do acionista.</p>
+</section>
+<section id="estatísticas-dos-dados" class="level2">
+<h2 class="anchored" data-anchor-id="estatísticas-dos-dados">Estatísticas dos dados</h2>
+<p>Agora, podemos analisar as estatísticas dos dados de maneira simples com a função <code>Ad</code> do pacote <code>quantmod</code>, que extrai a coluna <em>Adjusted</em> de um objeto com estrutura OHLC, e a função <code>table.Stats</code> do pacote <code>PerformanceAnalytics</code>, que retorna uma tabela básica de estatísticas dos dados.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecionando apenas preços ajustados</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>precos <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">Ad</span>(PETR4.SA), <span class="fu">Ad</span>(VALE3.SA))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(precos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PETR4"</span>, <span class="st">"VALE3"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table.Stats</span>(precos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    PETR4     VALE3
+Observations    1244.0000 1244.0000
+NAs                0.0000    0.0000
+Minimum            3.2421   18.9173
+Quartile 1         8.0994   49.3487
+Median            12.9243   52.9913
+Arithmetic Mean   15.6135   51.6738
+Geometric Mean    13.3255   50.0968
+Quartile 3        24.1016   59.1318
+Maximum           33.7639   73.0253
+SE Mean            0.2553    0.3322
+LCL Mean (0.95)   15.1127   51.0221
+UCL Mean (0.95)   16.1144   52.3255
+Variance          81.0819  137.2553
+Stdev              9.0046   11.7156
+Skewness           0.6224   -0.7765
+Kurtosis          -1.0673    0.1127</code></pre>
+</div>
+</div>
+<p>Podemos observar que, para ambos os ativos, há um total de 1244 observações Entre esses dados, percebemos que os preços das ações da Petrobras apresentaram valores mais baixos em todos os seus quantis quando em comparação com os preços da Vale. Além disso, observando as médias aritméticas e geométricas de ambos os ativos, é possível reparar que elas apresentam uma boa proximidade, indicando que os dados podem não apresentar valores <em>outliers</em> ou podem possuir baixa variabilidade, ideia essa que é corroborada pelos seus respectivos valores de desvio padrão aparentemente pequenos. Fora essas informações, a tabela também traz estatísticas de curtose e assimetria, importantes para análises de distribuições.</p>
+</section>
+<section id="manipulação-e-cálculo-de-retornos" class="level2">
+<h2 class="anchored" data-anchor-id="manipulação-e-cálculo-de-retornos">Manipulação e cálculo de retornos</h2>
+<p>Enquanto os preços nos mostram o nível do ativo, para a modelagem estatística utilizamos os retornos. De acordo com <span class="citation" data-cites="tsay2010analysis">Tsay (<a href="#ref-tsay2010analysis" role="doc-biblioref">2010</a>)</span>, os retornos simples (<span class="math inline">\(R_t\)</span>) são dados pela equação</p>
+<p><span class="math display">\[R_t=\dfrac{P_t-P_{t-1}}{P_{t-1}},\]</span></p>
+<p>onde <span class="math inline">\(P_t\)</span> é o preço no tempo <em>t</em> e <span class="math inline">\(P_{t-1}\)</span> é o preço no tempo <em>t-1</em>. Sua forma acumulada por <em>k</em> períodos é dada pela equação <span class="math display">\[\Pi_{j=0}^{k-1}(1+R_{t-j}).\]</span></p>
+<p>No R, podemos calcular isso facilmente e converter o formato <code>xts</code> para <code>tibble</code>, facilitando a visualização com <code>ggplot2</code>. Para isso, basta, primeiramente, juntarmos as informações</p>
+<div class="cell" data-table-cap="Data, ativo, preço e retornos simples e acumulados">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformação para formato tibble</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dados_tibble <span class="ot">&lt;-</span> precos <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fortify.zoo</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Data =</span> Index) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Data, <span class="at">names_to =</span> <span class="st">"Ativo"</span>, <span class="at">values_to =</span> <span class="st">"Preco"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ativo) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cálculo de retornos simples e acumulados</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Retorno_Diario =</span> <span class="fu">replace_na</span>((Preco<span class="sc">-</span><span class="fu">lag</span>(Preco))<span class="sc">/</span><span class="fu">lag</span>(Preco),<span class="dv">0</span>),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">Retorno_Acumulado =</span> <span class="fu">cumprod</span>(<span class="dv">1</span> <span class="sc">+</span> Retorno_Diario) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados_tibble)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+# Groups:   Ativo [2]
+  Data       Ativo Preco Retorno_Diario Retorno_Acumulado
+  &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;
+1 2020-01-02 PETR4  8.82        0                 0      
+2 2020-01-02 VALE3 30.1         0                 0      
+3 2020-01-03 PETR4  8.74       -0.00814          -0.00814
+4 2020-01-03 VALE3 29.9        -0.00736          -0.00736
+5 2020-01-06 PETR4  8.85        0.0118            0.00358
+6 2020-01-06 VALE3 29.7        -0.00593          -0.0133 </code></pre>
+</div>
+</div>
+<p>No entanto, também podemos calcular os retornos simples e acumulados a partir da função <code>Return.calculate</code> do pacote <code>PerfomanceAnalytics</code>, encontrando um resultado igual ao do cálculo feito anteriormente. Dessa forma, otimizamos o código ao evitar o processo de adicionar a fórmula ao mesmo.</p>
+<p>A função <code>Return.calculate</code> permite o cálculo de diferentes tipos de retorno, como o retorno simples e o retorno logarítmico (utilizando os argumentos “discrete” e “log”, respectivamente), abrangendo abordagens diversas para a análise de dados financeiros.</p>
+<p>A principal vantagem ao fazer uso dessa função é que não transformarmos os dados de <code>xts</code> para <code>tibble</code>, permitindo com que nós continuemos a trabalhar com eles diretamente no formato extraído e aplicando as funções especializadas da área para esses tipos de dados.</p>
+<div class="cell" data-table-cap="Retornos simples">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retornos simples</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>retornos_simples <span class="ot">&lt;-</span> <span class="fu">Return.calculate</span>(precos, <span class="at">method =</span> <span class="st">"discrete"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>retornos_simples <span class="ot">&lt;-</span> <span class="fu">na.fill</span>(retornos_simples, <span class="dv">0</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(retornos_simples)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  PETR4         VALE3
+2020-01-02  0.000000000  0.0000000000
+2020-01-03 -0.008143060 -0.0073622377
+2020-01-06  0.011822507 -0.0059338435
+2020-01-07 -0.003895041  0.0072748744
+2020-01-08 -0.006190794  0.0001849595
+2020-01-09 -0.003278387 -0.0131456716</code></pre>
+</div>
+</div>
+<div class="cell" data-table-cap="Retornos acumulados">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retornos acumulados</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>retornos_acumulados <span class="ot">&lt;-</span> <span class="fu">cumprod</span>(<span class="dv">1</span> <span class="sc">+</span> retornos_simples) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(retornos_acumulados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   PETR4        VALE3
+2020-01-02  0.0000000000  0.000000000
+2020-01-03 -0.0081430596 -0.007362238
+2020-01-06  0.0035831756 -0.013252395
+2020-01-07 -0.0003258219 -0.006073930
+2020-01-08 -0.0065145991 -0.005890094
+2020-01-09 -0.0097716283 -0.018958336</code></pre>
+</div>
+</div>
+<p>Outra função interessante para análise dos retornos é a função <code>Return.cumulative</code>, que entrega o retorno acumulado final dos ativos no período analisado. O retorno acumulado final pode ser comparado aos gráficos gerados mais a frente no texto.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retorno acumulado final em porcentagem</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Return.cumulative</span>(retornos_simples)<span class="sc">*</span><span class="dv">100</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     PETR4    VALE3
+Cumulative Return 268.6078 59.91256</code></pre>
+</div>
+</div>
+</section>
+<section id="visualização-de-resultados" class="level2">
+<h2 class="anchored" data-anchor-id="visualização-de-resultados">Visualização de Resultados</h2>
+<p>A visualização da evolução do retorno simples acumulado permite comparar o desempenho relativo dos ativos, normalizando o ponto de partida. Para isso, podemos utilizar o <code>ggplot</code>, função do ecossistema <code>tidyverse</code> para visualização gráfica, para os dados salvos no formato tibble.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de retornos acumulados</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados_tibble, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Data, <span class="at">y =</span> Retorno_Acumulado, <span class="at">color =</span> Ativo)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Retorno simples acumulado: PETR4 x VALE3"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Período: 2020-2024"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Retorno Simples Acumulado (%)"</span>, <span class="at">x =</span> <span class="st">"Data"</span>) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#0072B2"</span>, <span class="st">"#D55E00"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="grafico_retornos_acumulados-1.png" class="img-fluid figure-img"></p>
+<figcaption>Evolução do retorno acumulado (PETR4 e VALE3): ggplot</figcaption>
+</figure>
+</div>
+<p>Pelas curvas dos retornos simples acumulados de ambas as empresas, podemos notar uma queda abrupta entre o começo e o meio de 2020 (início da pandemia) e a subsequente recuperação por parte das duas empresas, com a Vale demonstrando uma alta mais acentuada em 2021 (ainda durante a pandemia) e se estabilizando até o final de 2024, enquanto a Petrobras demonstrou uma recuperação mais lenta, porém constante, e em 2023 apresentou um crescimento que se estendeu pelo menos até a última data analisada (final de 2024).</p>
+<p>Em comparação ao realizado pelo <code>tidyverse</code>, podemos então gerar um gráfico para a visualização dos retornos por meio de funções próprias do pacote <code>PerformanceAnalytics</code>, como a função <code>chart.CumReturns</code>.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de retornos acumulados</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.CumReturns</span>(retornos_simples, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">"Retorno simples acumulado: PETR4 x VALE3"</span>, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">legend.loc =</span> <span class="st">"topleft"</span>, </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">colorset =</span> <span class="fu">c</span>(<span class="st">"#0072B2"</span>, <span class="st">"#D55E00"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="chart_retornos_acumulados-1.png" class="img-fluid figure-img"></p>
+<figcaption>Evolução do retorno acumulado (PETR4 e VALE3): chart.CumReturns</figcaption>
+</figure>
+</div>
+<p>Podemos perceber que o gráfico gerado possui a mesma dinâmica, alterando apenas algumas formatações do layout do gráfico quando comparado ao feito pelo <code>tidyverse</code>. Além disso, a eficiência da função <code>chart.CumReturns</code> se mostrou muito maior, uma vez que precisou de menos linhas de código para gerar o mesmo gráfico.</p>
+<p>Observando os gráficos acima, percebemos que os retornos variam constantemente em ambos os ativos. Com o pacote <code>PerformanceAnalytics</code>, é possível analisar a frequência dessas movimentações, utilizando a função <code>DownsideFrequency</code> (ou <code>UpsideFrequency</code>, que é complementar à função anterior).</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequência em que os ativos estavam em queda</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DownsideFrequency</span>(retornos_simples)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                  PETR4     VALE3
+Downside Frequency (MAR = 0%) 0.4710611 0.5088424</code></pre>
+</div>
+</div>
+<p>Ao usarmos o retorno mínimo aceitável (<span class="math inline">\(MAR = 0%\)</span>) como parâmetro de comparação, percebemos que, entre as duas empresas, os retornos da Petrobras se mantiveram abaixo da margem de 0% por menos tempo em toda a série (aproximadamente 47% do tempo), enquanto os da Vale se mantiveram abaixo por praticamente metade do tempo analisado (aproximadamente 50% do tempo), indicando uma melhor constância no aumento dos retornos da Petrobras, algo que foi possível observar anteriormente através dos gráficos.</p>
+</section>
+<section id="métricas-de-performance" class="level2">
+<h2 class="anchored" data-anchor-id="métricas-de-performance">Métricas de performance</h2>
+<p>Uma métrica fundamental para gestão de risco é o <em>Maximum Drawdown</em> (Queda Máxima). Essa métrica mede a maior queda percentual de um pico até um fundo antes que um novo pico seja atingido.</p>
+<p>Utilizando a função <code>maxDradown</code> do pacote <code>PerformanceAnalytics</code>, podemos extrair essa métrica facilmente.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>max_dd <span class="ot">&lt;-</span> <span class="fu">maxDrawdown</span>(retornos_simples)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(max_dd)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   PETR4     VALE3
+Worst Drawdown 0.6335604 0.4134301</code></pre>
+</div>
+</div>
+<p>O resultado indica que, no pior momento do período analisado, um investidor da Petrobras chegou a ver seu capital reduzir-se em aproximadamente 63,3% em relação ao topo anterior, enquanto um investidor da Vale teve seu capital reduzido em aproximadamente 41,34% no maior ponto de queda.</p>
+<p>Para sabermos exatamente em qual período essa queda aconteceu e podermos associá-la a eventos macroeconômicos, além de entendermos quanto tempo aquele ativo demorou a se recuperar da queda, é necessário compreendermos as datas exatas em que ocorreram cada um desses processos. Para isso, basta utilizarmos a função <code>table.Drawdowns</code>, que apresenta em sua estrutura:</p>
+<ul>
+<li>A data do topo anterior (From);</li>
+<li>A data exata da queda máxima (Trough);</li>
+<li>A data em que o ativo recuperou o preço do topo anterior (To);</li>
+<li>A profundidade da queda (Depth);</li>
+<li>A duração total do ciclo em dias (Length);</li>
+<li>A duração do topo até a queda (To Trough);</li>
+<li>A duração da queda até a recuperação (Recovery)</li>
+</ul>
+<div class="cell" data-tbl-cap="Pior Drawdown - PETR4">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table.Drawdowns</span>(retornos_simples<span class="sc">$</span>PETR4, <span class="at">top =</span> <span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>        From     Trough         To   Depth Length To Trough Recovery
+1 2020-01-07 2020-03-18 2021-01-07 -0.6336    249        50      199</code></pre>
+</div>
+</div>
+<div class="cell" data-tbl-cap="Pior Drawdown - VALE3">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table.Drawdowns</span>(retornos_simples<span class="sc">$</span>VALE3, <span class="at">top =</span> <span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>        From     Trough         To   Depth Length To Trough Recovery
+1 2021-07-29 2021-11-18 2023-01-26 -0.4134    375        77      298</code></pre>
+</div>
+</div>
+<p>Ao analisar o comportamento histórico apresentado na tabela, observamos que o pior cenário para a Petrobras ocorreu de fato no início de 2020, coincidindo com o choque do mercado no início da pandemia observado graficamente. O ativo levou apenas 50 dias para atingir sua queda máxima de 63,36%, mas necessitou de quase 200 dias adicionais para se recuperar dessa queda.</p>
+<p>Já a Vale apresentou sua maior queda em um período diferente, iniciando em julho de 2021. Embora a profundidade tenha sido menor (41,34%), o ciclo de queda e recuperação foi significativamente mais longo, totalizando 375 dias entre o topo anterior e o retorno ao mesmo nível de preço.</p>
+<p>Para complementar as análises feitas pelos dados das tabelas, podemos utilizar as funções <code>AverageDrawdown</code>, <code>AverageLength</code> e <code>AverageRecovery</code> para obtermos as quedas médias e o tempo médio de recuperação</p>
+<div class="cell" data-tbl-cap="Métricas Drawdown">
+<details open="" class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Médias de queda e recuperação</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>drawdown_stats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  Métrica <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Profundidade média de queda"</span>, <span class="st">"Tempo médio de queda"</span>, <span class="st">"Tempo médio de recuperação"</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">PETR4 =</span> <span class="fu">c</span>(<span class="fu">AverageDrawdown</span>(retornos_simples<span class="sc">$</span>PETR4), <span class="fu">AverageLength</span>(retornos_simples<span class="sc">$</span>PETR4), <span class="fu">AverageRecovery</span>(retornos_simples<span class="sc">$</span>PETR4)),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">VALE3 =</span> <span class="fu">c</span>(<span class="fu">AverageDrawdown</span>(retornos_simples<span class="sc">$</span>VALE3), <span class="fu">AverageLength</span>(retornos_simples<span class="sc">$</span>VALE3), <span class="fu">AverageRecovery</span>(retornos_simples<span class="sc">$</span>VALE3))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(drawdown_stats)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Métrica       PETR4       VALE3
+1 Profundidade média de queda  0.07124564  0.07575652
+2        Tempo médio de queda 24.26530612 46.88461538
+3  Tempo médio de recuperação 15.59183673 19.61538462</code></pre>
+</div>
+</div>
+<p>Por fim, ao analisarmos as métricas de desempenho médio, nota-se que ambos os ativos possuem uma profundidade média de queda bastante próxima, situada entre 7,1% e 7,5%. No entanto, a dinâmica de tempo mostra que a Vale tende a ser mais persistente em seus movimentos de desvalorização, levando em média aproximadamente 46 dias para atingir o fundo da queda, quase o dobro do tempo observado para a Petrobras, que é de 24,2 dias. Essa característica se estende ao período de recuperação, no qual a Vale também demonstra maior lentidão, com um tempo médio de recuperação de 19,6 dias contra 15,5 dias da Petrobras, sugerindo que, embora a Petrobras sofra quedas mais abruptas em momentos de crise, ela historicamente demonstra uma capacidade de reação mais ágil do que a Vale.</p>
+</section>
+<section id="conclusão" class="level2">
+<h2 class="anchored" data-anchor-id="conclusão">Conclusão</h2>
+<p>Este tutorial demonstrou como o R não apresenta dificuldades para o trabalho com dados financeiros, possuindo funções que fazem desde a busca automática de informações de ativos até a criação de métricas que ajudam a entender os riscos de um investimento, com implementações diretas para visualização dos gráficos.</p>
+<p>Sobre a comparação da Petrobras com a Vale, exemplo utilizado para explorarmos as ferramentas dos pacotes apresentados, vimos que as análises dos retornos e de métricas como o <em>drawdown</em> são fundamentais para uma visão real de lucro e segurança. Percebemos que, embora a Petrobras tenha enfrentado uma queda muito mais forte durante a pandemia, ela mostrou uma capacidade de se recuperar e crescer com mais agilidade do que a Vale nos anos seguintes. Por outro lado, a Vale apresentou quedas menos profundas, mas que duraram muito mais tempo para serem superadas, o que exige mais paciência do investidor.</p>
+<p>Todas essas análises puderam ser realizadas através do uso dos pacotes <code>quantmod</code> e <code>PerformanceAnalytics</code>, que permitem que qualquer pessoa transforme dados financeiros brutos em análises visuais e estatísticas.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-peterson2024performance" class="csl-entry" role="listitem">
+Peterson, Brian G., e Peter Carl. 2024. <em>PerformanceAnalytics: Econometric Tools for Performance and Risk Analysis</em>. <a href="https://doi.org/10.32614/CRAN.package.PerformanceAnalytics">https://doi.org/10.32614/CRAN.package.PerformanceAnalytics</a>.
+</div>
+<div id="ref-ryan2025quantmod" class="csl-entry" role="listitem">
+Ryan, Jeffrey A., e Joshua M. Ulrich. 2025. <em>quantmod: Quantitative Financial Modelling Framework</em>. <a href="https://doi.org/10.32614/CRAN.package.quantmod">https://doi.org/10.32614/CRAN.package.quantmod</a>.
+</div>
+<div id="ref-tsay2010analysis" class="csl-entry" role="listitem">
+Tsay, Ruey S. 2010. <em>Analysis of Financial Time Series</em>. 3rd ed. Wiley.
+</div>
+<div id="ref-wickham2019tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>«Welcome to the <span>tidyverse</span>»</span>. <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.josecarlosinfo\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p><br>Copyright © 2024 | Made by <a href="https://www.josecarlosinfo.com/"> Jose C. S. Junior</a> | Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
